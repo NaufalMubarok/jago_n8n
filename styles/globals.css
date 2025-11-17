@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+html, body, #__next {
+height: 100%;
+}
+
+
+body {
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+}
+
+/* Hilangkan scrollbar di semua browser */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+
+/* marquee animation */
+@keyframes marquee {
+  0% { transform: translate3d(0,0,0); }
+  100% { transform: translate3d(-50%,0,0); } /* -50% karena kita menggandakan isi */
+}
+
+/* kontainer marquee */
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+  will-change: transform;
+}
+
+/* hentikan animasi saat hover (pause) */
+.marquee:hover {
+  animation-play-state: paused;
+}
+
+/* optional: smoother subpixel rendering */
+.marquee > * { backface-visibility: hidden; -webkit-transform: translateZ(0); transform: translateZ(0); }
+
+/* Rail titik-titik mirip ByteByteAI */
+.outline-rail{
+  background-image: radial-gradient(#e5e7eb 2px, transparent 2.6px);
+  background-size: 10px 18px;
+  background-repeat: repeat-y;
+  background-position: center;
+}
+
