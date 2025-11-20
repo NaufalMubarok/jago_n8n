@@ -15,14 +15,14 @@ type Project = {
 const projects = projectsData as Project[];
 
 // Konfigurasi yang bisa kamu ubah dengan mudah
-const WHATSAPP_NUMBER = "6287812243298"; // ganti dengan nomor WhatsApp kamu (format internasional tanpa +)
-const BASE_PRICE = 199000; // harga awal produk
-const PROMO_DISCOUNT = 100000; // diskon promo tetap (tanpa kupon)
-const COUPON_CODE = "JAGON8N"; // kode kupon (opsional)
-const COUPON_DISCOUNT = 50000; // diskon tambahan dari kupon
-const BANK_NAME = "BCA"; // nama bank
-const BANK_ACCOUNT = "1234567890"; // nomor rekening
-const BANK_HOLDER = "Nama Pemilik Rekening"; // nama pemilik rekening
+const WHATSAPP_NUMBER = "6287812243298"; 
+const BASE_PRICE = 199000;
+const PROMO_DISCOUNT = 100000; 
+const COUPON_CODE = "JAGON8N"; 
+const COUPON_DISCOUNT = 50000; 
+const BANK_NAME = "Seabank";
+const BANK_ACCOUNT = "901496816357"; 
+const BANK_HOLDER = "Mukhammad Naufal Faisal Mubarok"; 
 
 export default function Checkout() {
   const router = useRouter();
