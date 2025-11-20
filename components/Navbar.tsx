@@ -25,10 +25,19 @@ export default function Navbar() {
           Jago<span className="text-green-600">n8n</span>
         </Link>
 
-        {/* Menu */}
-        <div className="space-x-6 text-gray-700 font-medium">
-          <Link href="#projects" className="hover:text-green-600 transition">
-            Projects
+        {/* Menu simple */}
+        <div className="flex items-center gap-6 text-gray-700 font-medium">
+          <Link
+            href="/#products"
+            className="hidden sm:inline-block hover:text-green-600 transition"
+          >
+            Workflow
+          </Link>
+          <Link
+            href="/#pricing"
+            className="px-4 py-1.5 rounded-full border border-gray-300 text-sm hover:border-green-500 hover:text-green-700 transition"
+          >
+            Beli Paket
           </Link>
         </div>
       </div>
