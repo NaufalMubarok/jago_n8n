@@ -1,17 +1,22 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
-import BackToTop from '../components/BackToTop'
-import Script from 'next/script'
+import "../styles/globals.css";
+import type { AppProps } from "next/app";
+import Head from "next/head";
+import BackToTop from "../components/BackToTop";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Script
-        src="https://app.sandbox.midtrans.com/snap/snap.js"
-        data-client-key={process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY}
-      />
+      <Head>
+        <title>Jago n8n — Workflow Library</title>
+        <meta
+          name="description"
+          content="Kumpulan workflow n8n siap pakai untuk mengotomasi bisnis dan pekerjaan harian."
+        />
+        <link rel="icon" href="/logo-n8n.png" sizes="32x32" />
+        <link rel="shortcut icon" href="/logo-n8n.png" />
+      </Head>
       <Component {...pageProps} />
       <BackToTop />
     </>
-  )
+  );
 }

@@ -108,16 +108,16 @@ export default function Checkout() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-white text-slate-900">
       <Navbar />
 
-      <div className="pt-24 px-6 md:px-20 pb-20">
-        <div className="max-w-4xl mx-auto">
-          <div className="mb-4">
+      <div className="pt-24 px-6 md:px-10 lg:px-20 pb-20">
+        <div className="max-w-5xl mx-auto">
+          <div className="mb-5">
             <button
               type="button"
               onClick={() => router.back()}
-              className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900"
+              className="inline-flex items-center text-sm text-slate-500 hover:text-emerald-600 transition group"
             >
               <span className="mr-2 text-lg">←</span>
               Kembali pilih produk
@@ -125,23 +125,23 @@ export default function Checkout() {
           </div>
 
           {/* Step indicator */}
-          <div className="flex items-center gap-3 text-sm text-gray-500 mb-6">
+          <div className="flex items-center gap-3 text-xs md:text-sm text-slate-500 mb-8">
             <div className="flex items-center gap-2">
-              <span className="h-6 w-6 flex items-center justify-center rounded-full bg-green-600 text-white text-xs font-semibold">
+              <span className="h-6 w-6 flex items-center justify-center rounded-full bg-emerald-600 text-white text-[11px] font-semibold">
                 1
               </span>
               <span>Data Pembeli</span>
             </div>
             <span className="h-px w-8 bg-gray-300" />
             <div className="flex items-center gap-2">
-              <span className="h-6 w-6 flex items-center justify-center rounded-full bg-green-600 text-white text-xs font-semibold">
+              <span className="h-6 w-6 flex items-center justify-center rounded-full bg-emerald-600 text-white text-[11px] font-semibold">
                 2
               </span>
               <span>Review Pesanan</span>
             </div>
             <span className="h-px w-8 bg-gray-300" />
             <div className="flex items-center gap-2">
-              <span className="h-6 w-6 flex items-center justify-center rounded-full bg-gray-200 text-gray-400 text-xs font-semibold">
+              <span className="h-6 w-6 flex items-center justify-center rounded-full bg-gray-200 text-slate-400 text-xs font-semibold">
                 3
               </span>
               <span>Chat WhatsApp</span>
@@ -150,76 +150,76 @@ export default function Checkout() {
 
           <div className="grid md:grid-cols-[2fr,1.4fr] gap-8 items-start">
             {/* Left: form */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
+            <div className="rounded-3xl border border-slate-100 bg-white shadow-sm p-6 md:p-8">
               <h1 className="text-2xl md:text-3xl font-bold">
                 Checkout: {productTitle}
               </h1>
-              <p className="mt-3 text-gray-600 text-sm md:text-base">
+              <p className="mt-3 text-slate-600 text-sm md:text-base">
                 {productShort}
               </p>
 
-              <div className="mt-6 space-y-3 text-sm text-gray-700">
+              <div className="mt-6 space-y-3 text-sm text-slate-700">
                 <p className="font-semibold">Rincian produk:</p>
                 <p>{productContent}</p>
               </div>
 
               <form onSubmit={handleSubmit} className="mt-6 space-y-4 text-sm">
                 <div>
-                  <label className="block text-gray-700 font-medium mb-1">
+                  <label className="block text-slate-700 font-medium mb-1">
                     Nama lengkap
                   </label>
                   <input
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
                     placeholder="Nama kamu"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-gray-700 font-medium mb-1">
+                  <label className="block text-slate-700 font-medium mb-1">
                     Email
                   </label>
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
                     placeholder="email@kamu.com"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-gray-700 font-medium mb-1">
+                  <label className="block text-slate-700 font-medium mb-1">
                     Nomor WhatsApp
                   </label>
                   <input
                     type="tel"
                     value={whatsapp}
                     onChange={(e) => setWhatsapp(e.target.value)}
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
                     placeholder="contoh: 0812xxxxxxx"
                   />
-                  <p className="mt-1 text-[11px] text-gray-400">
+                  <p className="mt-1 text-[11px] text-slate-400">
                     Pastikan nomor aktif karena proses order akan dilanjutkan di
                     WhatsApp.
                   </p>
                 </div>
 
                 <div>
-                  <label className="block text-gray-700 font-medium mb-1">
+                  <label className="block text-slate-700 font-medium mb-1">
                     Kode kupon (opsional)
                   </label>
                   <input
                     type="text"
                     value={coupon}
                     onChange={(e) => setCoupon(e.target.value)}
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
                     placeholder="Masukkan kode kupon jika ada"
                   />
                   {coupon && (
-                    <p className="mt-1 text-[11px] text-gray-500">
+                    <p className="mt-1 text-[11px] text-slate-500">
                       {isCouponValid
                         ? `Kupon berhasil digunakan, diskon ${formatRupiah(
                             COUPON_DISCOUNT
@@ -238,7 +238,7 @@ export default function Checkout() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="mt-4 inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl bg-green-600 hover:bg-green-700 text-white font-semibold shadow-md transition disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="mt-4 inline-flex items-center justify-center gap-2 px-7 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold shadow-md transition disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   {submitting && (
                     <span className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -250,7 +250,7 @@ export default function Checkout() {
                   </span>
                 </button>
 
-                <p className="mt-3 text-[11px] text-gray-400">
+                <p className="mt-3 text-[11px] text-slate-400">
                   Dengan klik tombol di atas kamu akan diarahkan ke WhatsApp
                   untuk melanjutkan proses pembelian langsung dengan kami.
                 </p>
@@ -258,30 +258,30 @@ export default function Checkout() {
             </div>
 
             {/* Right: order summary */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-7">
-              <h2 className="text-lg font-semibold mb-4">Ringkasan Order</h2>
+            <div className="rounded-3xl border border-slate-100 bg-white shadow-sm p-6 md:p-7">
+              <h2 className="text-lg font-semibold mb-5">Ringkasan Order</h2>
 
               <div className="flex justify-between mb-2 text-sm">
-                <span className="text-gray-600">Produk</span>
+                <span className="text-slate-600">Produk</span>
                 <span className="font-medium text-right ml-4">
                   {productTitle}
                 </span>
               </div>
 
               <div className="flex justify-between mb-1 text-sm">
-                <span className="text-gray-600">Harga awal</span>
+                <span className="text-slate-600">Harga awal</span>
                 <span>{formatRupiah(BASE_PRICE)}</span>
               </div>
 
               <div className="flex justify-between mb-1 text-sm">
-                <span className="text-gray-600">Promo diskon</span>
+                <span className="text-slate-600">Promo diskon</span>
                 <span>
                   {promoDiscount > 0 ? `- ${formatRupiah(promoDiscount)}` : "-"}
                 </span>
               </div>
 
               <div className="flex justify-between mb-1 text-sm">
-                <span className="text-gray-600">Diskon kupon</span>
+                <span className="text-slate-600">Diskon kupon</span>
                 <span>
                   {couponDiscount > 0
                     ? `- ${formatRupiah(couponDiscount)}`
@@ -289,15 +289,15 @@ export default function Checkout() {
                 </span>
               </div>
 
-              <div className="border-t mt-4 pt-4 flex justify-between items-center">
-                <span className="text-sm font-semibold">Total</span>
-                <span className="text-xl font-bold">
+              <div className="border-t border-slate-700 mt-4 pt-4 flex justify-between items-center">
+                <span className="text-sm font-semibold text-slate-200">Total</span>
+                <span className="text-2xl font-bold text-emerald-400">
                   {formatRupiah(total)}
                 </span>
               </div>
 
               <div className="mt-5 bg-green-50 border border-green-100 rounded-xl p-3 text-xs text-green-800">
-                <p className="font-semibold mb-1">Proses via WhatsApp:</p>
+                <p className="font-semibold text-emerald-300">Proses via WhatsApp</p>
                 <p>
                   Setelah klik tombol, detail pesananmu otomatis dikirim ke
                   WhatsApp kami. Kamu akan dibantu sampai proses pembayaran dan
