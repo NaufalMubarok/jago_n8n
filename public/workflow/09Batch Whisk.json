@@ -1,0 +1,223 @@
+{
+  "name": "batch image with whisk",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -176,
+        16
+      ],
+      "id": "067558e6-7a62-48c4-8b86-8beb7e9d7b96",
+      "name": "Telegram Trigger1",
+      "webhookId": "71ab1f90-828c-4e17-957c-f0bfe944d68b",
+      "credentials": {
+        "telegramApi": {
+          "id": "VKHxunjb8SNERwQi",
+          "name": "replicate bot img"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "binaryData": true,
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1120,
+        32
+      ],
+      "id": "f1b0314e-975f-4de0-af8c-3ea0d1681d9f",
+      "name": "Send a photo message1",
+      "webhookId": "352e2f6d-d14d-4aea-a621-3db4b4b72c4f",
+      "credentials": {
+        "telegramApi": {
+          "id": "VKHxunjb8SNERwQi",
+          "name": "replicate bot img"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        240,
+        16
+      ],
+      "id": "9ffad81b-1184-482f-bccf-a5ff1fce83df",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "imagePanels[0].generatedImages[0].encodedImage",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        656,
+        32
+      ],
+      "id": "701cdfc5-eab4-476d-a2fc-0e62fa652167",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "action": "generate",
+        "dataPropertyName": "uuid"
+      },
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 1,
+      "position": [
+        864,
+        32
+      ],
+      "id": "eb3f8246-f204-4115-938a-4330bbe68533",
+      "name": "Crypto"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://aisandbox-pa.googleapis.com/v1/whisk:generateImage",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBearerAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"clientContext\": {\n    \"workflowId\": \"82ef7a35-c92e-42e0-b4a0-c58169593790\",\n    \"tool\": \"BACKBONE\",\n    \"sessionId\": \";1750214024285\"\n  },\n  \"imageModelSettings\": {\n    \"imageModel\": \"IMAGEN_3_5\",\n    \"aspectRatio\": \"IMAGE_ASPECT_RATIO_LANDSCAPE\"\n  },\n  \"prompt\": \"{{ $json.prompt.replace(/\\\"/g, '\\\\\\\"') }}\",\n  \"mediaCategory\": \"MEDIA_CATEGORY_BOARD\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        464,
+        32
+      ],
+      "id": "80b1259f-6f8a-449b-8bac-1ab36ff551cf",
+      "name": "HTTP Request1",
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "aoprHInJAFAdnB02",
+          "name": "Bearer Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  { json: { prompt: $json.message.text } },\n  { json: { prompt: $json.message.text } },\n  { json: { prompt: $json.message.text } },\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        32,
+        16
+      ],
+      "id": "a1daa33c-2abe-4432-8636-7323e616d08f",
+      "name": "Code "
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Code ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a photo message1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Crypto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crypto": {
+      "main": [
+        [
+          {
+            "node": "Send a photo message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code ": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "a306f5f7-de41-4e95-a885-e5027663a94b",
+  "meta": {
+    "instanceId": "9f50c3a54d7e4c591ec0ac4c965b7a2d02bc64a7088b6857d1a86138c09c43ba"
+  },
+  "id": "J68sBksfYJRuyIvC",
+  "tags": []
+}

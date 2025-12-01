@@ -1,0 +1,314 @@
+{
+  "name": "Upscaler Image With imgupscaler API",
+  "nodes": [
+    {
+      "parameters": {
+        "amount": 1,
+        "unit": "minutes"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1216,
+        0
+      ],
+      "id": "b75f9b15-f6f8-4a0a-b899-0940d75f1cdb",
+      "name": "Wait",
+      "webhookId": "5c3382f1-a2e2-49fe-ae9b-8f0149e34fb7"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "2d8dfb94-3226-478f-8505-369b60140909",
+              "leftValue": "={{ $json.data.status }}",
+              "rightValue": "success",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1632,
+        0
+      ],
+      "id": "1b3c88fd-fc17-42f7-bd5a-1469c3f0e016",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {
+          "download": true
+        }
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        784,
+        0
+      ],
+      "id": "92425897-b9d7-43f5-8516-e7e0212cba80",
+      "name": "Telegram Trigger",
+      "webhookId": "6cefd2a9-c3f8-4e49-a932-53608d81438e",
+      "credentials": {
+        "telegramApi": {
+          "id": "cYUhQOUIYzfM4XEB",
+          "name": "bot ups img"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://get1.imglarger.com/api/UpscalerNew/UploadNew",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Origin",
+              "value": "https://imgupscaler.com"
+            },
+            {
+              "name": "Referer",
+              "value": "https://imgupscaler.com/"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "scaleRadio",
+              "value": "4"
+            },
+            {
+              "parameterType": "formBinaryData",
+              "name": "myfile",
+              "inputDataFieldName": "data"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        992,
+        0
+      ],
+      "id": "dddb58ba-70b0-42fe-a609-59752910487e",
+      "name": "Upscaler Request"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://get1.imglarger.com/api/UpscalerNew/CheckStatusNew",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "code",
+              "value": "={{ $json.data.code }}"
+            },
+            {
+              "name": "scaleRadio",
+              "value": "4"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1424,
+        0
+      ],
+      "id": "c186eec9-da85-48f2-ac26-f9ad86c34321",
+      "name": "Check Status"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.data.downloadUrls[0] }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json, text/plain, */*"
+            },
+            {
+              "name": "Accept-Encoding",
+              "value": "gzip, deflate, br, zstd"
+            }
+          ]
+        },
+        "options": {
+          "redirect": {},
+          "response": {}
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1888,
+        -16
+      ],
+      "id": "0d8028aa-992d-4e99-bd1a-53b19db6a970",
+      "name": "Download Result"
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "binaryData": true,
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2336,
+        -16
+      ],
+      "id": "3a83094e-a280-40ec-9641-b9b51b325ca5",
+      "name": "Send a photo message",
+      "webhookId": "eebca0db-5fbf-4db0-8a21-e7f882557c8c",
+      "credentials": {
+        "telegramApi": {
+          "id": "cYUhQOUIYzfM4XEB",
+          "name": "bot ups img"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "action": "generate",
+        "dataPropertyName": "uuid"
+      },
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 1,
+      "position": [
+        2128,
+        -16
+      ],
+      "id": "ab33b685-bf7d-4a90-b4fb-192504ac8888",
+      "name": "Crypto"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Check Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Download Result",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Upscaler Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upscaler Request": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Status": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Result": {
+      "main": [
+        [
+          {
+            "node": "Crypto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crypto": {
+      "main": [
+        [
+          {
+            "node": "Send a photo message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "0b4736a2-d643-49c2-a449-8fa1f8d24171",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "9f50c3a54d7e4c591ec0ac4c965b7a2d02bc64a7088b6857d1a86138c09c43ba"
+  },
+  "id": "Oh56yse5raOCsNPk",
+  "tags": []
+}

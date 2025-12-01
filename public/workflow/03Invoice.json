@@ -1,0 +1,393 @@
+{
+  "name": "Invoice",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "3bec5d15-bf04-4def-b05c-991f1518cbb7",
+      "name": "Telegram Trigger",
+      "webhookId": "fd8b9ccf-d689-4229-a91b-95d776950c08",
+      "credentials": {
+        "telegramApi": {
+          "id": "cvy4Fhrhx2L3d7s9",
+          "name": "Telegram account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "fileId": "={{ $json.message.photo[0].file_id }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "cfb7d9fa-2f81-457e-9f31-b445110e3047",
+      "name": "Get a file",
+      "webhookId": "151b16e0-44bd-408c-8b0b-8bab6dd78b22",
+      "credentials": {
+        "telegramApi": {
+          "id": "cvy4Fhrhx2L3d7s9",
+          "name": "Telegram account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "=https://api.telegram.org/file/bot8467077680:AAHdZ7bh021x0iweaT_wgS0NYGi385t6Wzc/{{ $json.result.file_path }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "e4259565-b086-488f-af32-00c031e68ab3",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "binaryToPropery",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        624,
+        0
+      ],
+      "id": "6f00de7f-53e6-4768-8a54-d77344b0f811",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Ambil Base64 string hasil dari node sebelumnya\nconst base64String = $json[\"data\"]; // karena 'Extract from File' output-nya di JSON field 'data'\n\n// Buat payload untuk Gemini\nconst geminiPayload = {\n  contents: [\n    {\n      parts: [\n        { text: \"kstrak informasi dari gambar invoice ini dan berikan hasil dalam format PERSIS seperti ini:\\n\\nINVOICE_NUMBER: 28/03/2022\\nDATE: 2022-03-28\\nTOTAL_AMOUNT: 880000\\nBILLING_ADDRESS: Ketut Susilo, hello@reallygreatsite.com\\n\\nGantilah nilai-nilai di atas berdasarkan data dari gambar. Jangan tulis tanda kurung atau placeholder. Hanya kirimkan data dalam format di atas.\\n\\nJika data tidak bisa dibaca, jawab hanya:\\nERROR: Data tidak dapat dibaca dari gambar invoice.\" },\n        { inline_data: { mime_type: \"image/jpeg\", data: base64String } }\n      ]\n    }\n  ],\n  generationConfig: {\n    responseMimeType: \"text/plain\"\n  }\n};\n\n// Return hasil untuk dikirim ke HTTP Request berikutnya\nreturn [\n  {\n    json: {\n      gemini_payload: geminiPayload,\n      base64_ready: base64String,\n      data_length: base64String?.length || 0\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        832,
+        0
+      ],
+      "id": "5ba42a8f-0380-415d-8443-fbd4a9e1b233",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=AIzaSyAeolfWzVSSlaw_uwxACkFgMfbzgtp9bEs",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.gemini_payload }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1040,
+        0
+      ],
+      "id": "0fd2490d-5a9c-4ac4-aad0-3a19656358ec",
+      "name": "Send to Gemini API1"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1Ih5rgMzaGzM3uoFvqzFvnAV1eN8Ulfi2ZUrgpRCLcik",
+          "mode": "list",
+          "cachedResultName": "Invoice",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ih5rgMzaGzM3uoFvqzFvnAV1eN8Ulfi2ZUrgpRCLcik/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Ih5rgMzaGzM3uoFvqzFvnAV1eN8Ulfi2ZUrgpRCLcik/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "INVOICE NUMBER": "={{ $json.candidates[0].content.parts[0].text.match(/INVOICE_NUMBER: (.*)/)[1] }}",
+            "DATE": "={{ $json.candidates[0].content.parts[0].text.match(/DATE: (.*)/)[1] }}",
+            "TOTAL": "={{ $json.candidates[0].content.parts[0].text.match(/TOTAL_AMOUNT: (.*)/)[1] }}",
+            "BILLING ADDRESS": "={{ $json.candidates[0].content.parts[0].text.match(/BILLING_ADDRESS: (.*)/)[1] }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "INVOICE NUMBER",
+              "displayName": "INVOICE NUMBER",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "DATE",
+              "displayName": "DATE",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "TOTAL",
+              "displayName": "TOTAL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "BILLING ADDRESS",
+              "displayName": "BILLING ADDRESS",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1248,
+        0
+      ],
+      "id": "689ae7f8-c8ae-4d5b-b134-0221a29a065c",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2zqegJGGfxaG4HXu",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "fileId": "={{ $('Telegram Trigger').item.json.message.photo[0].file_id }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1440,
+        0
+      ],
+      "id": "17899446-ac43-4294-91ea-a790c4a9e458",
+      "name": "Get a file1",
+      "webhookId": "4a8d8aae-a188-4d67-be44-7ec33bb437cb",
+      "credentials": {
+        "telegramApi": {
+          "id": "cvy4Fhrhx2L3d7s9",
+          "name": "Telegram account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "=Invoice {{ $('Send to Gemini API1').item.json.candidates[0].content.parts[0].text.match(/DATE: (.*)/)[1] }}",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1s27BV-tF-XL7dt1HDRlSbZerdhycBlLI",
+          "mode": "list",
+          "cachedResultName": "Invoice",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1s27BV-tF-XL7dt1HDRlSbZerdhycBlLI"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1648,
+        0
+      ],
+      "id": "23222cc2-1b96-4354-9f7c-eacfff774d3f",
+      "name": "Upload file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "FpqbhhDx3hree1Qt",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "=Terima kasih telah mengirimkan invoice!  \n\nTotal tagihan dari invoice ini adalah Rp.{{ $('Send to Gemini API1').item.json.candidates[0].content.parts[0].text.match(/TOTAL_AMOUNT: (.*)/)[1] }}, dengan tanggal jatuh tempo pada {{ $('Send to Gemini API1').item.json.candidates[0].content.parts[0].text.match(/DATE: (.*)/)[1] }}.  \nCatatan: \n- Harap lakukan pembayaran sebelum jatuh tempo untuk menghindari denda.\n- Jika ada pertanyaan mengenai invoice, hubungi hello@reallygreatsite.com. \n- Metode pembayaran yang diterima: transfer bank, kartu kredit, atau QRIS.\n- Pembayaran yang terlambat dikenakan denda sebesar 5%.  Invoice ini telah ditambahkan ke Google Drive dengan nama file: \"Invoice-{{ $('Send to Gemini API1').item.json.candidates[0].content.parts[0].text.match(/DATE: (.*)/)[1] }}.png\".  Anda dapat mengakses database invoice [Klik disini](https://drive.google.com/drive/folders/18P__tGZNEsE_JYk3sGePX45s0U60y-82?usp=sharing).\n\n",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1856,
+        0
+      ],
+      "id": "aff6dac4-c238-44ac-b94a-1b6d3e20669b",
+      "name": "Send a text message",
+      "webhookId": "29f35f6a-f600-4c86-89f7-937184392039",
+      "credentials": {
+        "telegramApi": {
+          "id": "cvy4Fhrhx2L3d7s9",
+          "name": "Telegram account 3"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get a file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get a file": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Send to Gemini API1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send to Gemini API1": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Get a file1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get a file1": {
+      "main": [
+        [
+          {
+            "node": "Upload file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload file": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "31fce971-6b0d-4438-9117-1cfe93575353",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e36ff6558820d981a9e7e54673db0787a84988b423633ebdead98fe4fed25bae"
+  },
+  "id": "EzD2F8SAmjlC7ROu",
+  "tags": []
+}

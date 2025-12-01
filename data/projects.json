@@ -1,0 +1,448 @@
+[
+    {
+        "id": "1",
+        "slug": "1. Chatbot Cerdas untuk Customer Service",
+        "title": "1. Chatbot Cerdas untuk Customer Service",
+        "short": "Otomatisasi pembuatan chatbot menggunakan n8n dan OpenAI.",
+        "image": "/projects/1.png",
+        "price": 50000,
+        "promoDiscount": 25000,
+        "couponDiscount": 5000,
+        "content": "Detail lengkap workflow pembuatan chatbot, langkah-langkah dan integrasi.",
+        "sections": [
+            {
+                "title": "Pra-Pelatihan",
+                "items": [
+                    "Pengumpulan data percakapan dari berbagai sumber",
+                    "Pembersihan & normalisasi data chat",
+                    "Tokenisasi untuk pemahaman bahasa alami",
+                    "Pemilihan arsitektur model NLP",
+                    "Penyusunan workflow respon otomatis di n8n"
+                ]
+            },
+            {
+                "title": "Pasca Pelatihan",
+                "items": [
+                    "Fine-tuning untuk konteks bisnis tertentu",
+                    "Integrasi RLHF untuk meningkatkan kualitas respon"
+                ]
+            },
+            {
+                "title": "Evaluasi",
+                "items": [
+                    "Pengujian kualitas respon",
+                    "Benchmark terhadap contoh percakapan",
+                    "Optimasi latency & akurasi"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "2",
+        "slug": "2. Expense Tracker - Catat Pengeluaran Otomatis dari Struk",
+        "title": "2. Expense Tracker - Catat Pengeluaran Otomatis dari Struk",
+        "short": "Catat pengeluaran otomatis dengan Google Sheet dan Telegram Bot.",
+        "image": "/projects/2.png",
+        "price": 50000,
+        "promoDiscount": 25000,
+        "couponDiscount": 5000,
+        "content": "Panduan setup tracker otomatis, webhook, trigger, dan sinkronisasi.",
+        "sections": [
+            {
+                "title": "Ekstraksi Data",
+                "items": [
+                    "Upload struk via Telegram/WhatsApp",
+                    "Pembacaan teks struk dengan OCR",
+                    "Normalisasi format tanggal & nominal"
+                ]
+            },
+            {
+                "title": "Automasi Pengelompokan",
+                "items": [
+                    "Klasifikasi kategori belanja menggunakan AI",
+                    "Validasi data transaksi secara otomatis",
+                    "Penyimpanan ke Google Sheet/Notion"
+                ]
+            },
+            {
+                "title": "Pelacakan & Laporan",
+                "items": [
+                    "Rekap pengeluaran harian/mingguan",
+                    "Pembuatan grafik otomatis",
+                    "Notifikasi pengeluaran berlebih"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "3",
+        "slug": "3. Manajemen Invoice - Kelola Tagihan",
+        "title": "3. Manajemen Invoice - Kelola Tagihan",
+        "short": "Mengubah pencatatan manual menjadi alur otomatis.",
+        "image": "/projects/3.png",
+        "price": 50000,
+        "promoDiscount": 25000,
+        "couponDiscount": 5000,
+        "content": "Deskripsi proyek dan file konfigurasi contoh.",
+        "sections": [
+            {
+                "title": "Input Data",
+                "items": [
+                    "Pengiriman invoice via bot Telegram",
+                    "Ekstraksi OCR untuk teks invoice",
+                    "Deteksi nomor invoice & total pembayaran"
+                ]
+            },
+            {
+                "title": "Pemrosesan",
+                "items": [
+                    "Validasi format invoice",
+                    "Pembuatan entri otomatis",
+                    "Integrasi ke Notion/Google Sheet/Xero"
+                ]
+            },
+            {
+                "title": "Automasi",
+                "items": [
+                    "Pengingat jatuh tempo",
+                    "Pembuatan laporan otomatis",
+                    "Backup ke Google Drive"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "4",
+        "slug": "4. Upscale Gambar dengan ImgUpscaler API",
+        "title": "4. Upscale Gambar dengan ImgUpscaler API",
+        "short": "Langkah demi langkah membangun bot Telegram/Slack.",
+        "image": "/projects/4.png",
+        "price": 50000,
+        "promoDiscount": 25000,
+        "couponDiscount": 5000,
+        "content": "Flow dan node n8n yang direkomendasikan.",
+        "sections": [
+            {
+                "title": "Input Gambar",
+                "items": [
+                    "Upload gambar via Telegram",
+                    "Validasi ukuran & format file",
+                    "Pengiriman request ke ImgUpscaler API"
+                ]
+            },
+            {
+                "title": "Proses Upscale",
+                "items": [
+                    "Pengaturan resolusi & model upscale",
+                    "Peningkatan kualitas gambar otomatis",
+                    "Optimasi ukuran file"
+                ]
+            },
+            {
+                "title": "Output",
+                "items": [
+                    "Pengiriman hasil kembali ke Telegram",
+                    "Penyimpanan otomatis ke Drive",
+                    "Log aktivitas & error handling"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "5",
+        "slug": "5. Konversi Format Gambar ke SVG Vector",
+        "title": "5. Konversi Format Gambar ke SVG Vector",
+        "short": "Otomatisasi konversi gambar ke SVG/format lain.",
+        "image": "/projects/5.png",
+        "price": 50000,
+        "promoDiscount": 25000,
+        "couponDiscount": 5000,
+        "content": "Workflow pemrosesan gambar batch.",
+        "sections": [
+            {
+                "title": "Upload & Validasi",
+                "items": [
+                    "Pengiriman gambar via Telegram",
+                    "Pengecekan format JPG/PNG",
+                    "Konversi awal ke grayscale (opsional)"
+                ]
+            },
+            {
+                "title": "Konversi SVG",
+                "items": [
+                    "Pemrosesan dengan API vectorizer",
+                    "Penyesuaian level detail & smoothing",
+                    "Optimasi ukuran SVG"
+                ]
+            },
+            {
+                "title": "Distribusi",
+                "items": [
+                    "Pengiriman file SVG ke user",
+                    "Backup otomatis ke cloud",
+                    "Pembuatan riwayat konversi"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "6",
+        "slug": "6. AI Image Generator dengan n8n & Whisk",
+        "title": "6. AI Image Generator dengan n8n & Whisk",
+        "short": "Buat dokumen dari template secara otomatis.",
+        "image": "/projects/6.png",
+        "price": 50000,
+        "promoDiscount": 25000,
+        "couponDiscount": 5000,
+        "content": "Template, merge data, dan export otomatis.",
+        "sections": [
+            {
+                "title": "Input Prompt",
+                "items": [
+                    "Pengiriman prompt via form/chat",
+                    "Validasi gaya & parameter gambar",
+                    "Normalisasi prompt"
+                ]
+            },
+            {
+                "title": "Generasi Gambar",
+                "items": [
+                    "Request ke Whisk API",
+                    "Pemrosesan model generatif",
+                    "Optimasi kualitas & resolusi"
+                ]
+            },
+            {
+                "title": "Output",
+                "items": [
+                    "Pengiriman hasil otomatis",
+                    "Penyimpanan & indexing",
+                    "Batch generation opsional"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "7",
+        "slug": "7. AI Image Generator dengan n8n & Replicate",
+        "title": "7. AI Image Generator dengan n8n & Replicate",
+        "short": "Panduan komprehensif pembuatan bot otomatis.",
+        "image": "/projects/7.png",
+        "price": 50000,
+        "promoDiscount": 25000,
+        "couponDiscount": 5000,
+        "content": "Panduan langkah demi langkah.",
+        "sections": [
+            {
+                "title": "Input Prompt",
+                "items": [
+                    "Pengiriman teks/deskripsi gambar",
+                    "Parsing parameter model",
+                    "Filter keamanan prompt"
+                ]
+            },
+            {
+                "title": "Generasi AI",
+                "items": [
+                    "Pemanggilan Replicate API",
+                    "Pengaturan model (SDXL, Flux, dlsb)",
+                    "Monitoring status job"
+                ]
+            },
+            {
+                "title": "Output",
+                "items": [
+                    "Pengiriman gambar ke Telegram",
+                    "Penyimpanan cloud otomatis",
+                    "Pengarsipan prompt & hasil"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "8",
+        "slug": "8. AI Image Generator dengan n8n & Hugging Face",
+        "title": "8. AI Image Generator dengan n8n & Hugging Face",
+        "short": "Generate form & collect response otomatis.",
+        "image": "/projects/8.png",
+        "price": 50000,
+        "promoDiscount": 25000,
+        "couponDiscount": 5000,
+        "content": "Integrasi form builder & sink ke database.",
+        "sections": [
+            {
+                "title": "Interaksi Bot",
+                "items": [
+                    "User mengirim prompt gambar",
+                    "Parsing opsi model HuggingFace",
+                    "Filter kata sensitif"
+                ]
+            },
+            {
+                "title": "Generasi Model",
+                "items": [
+                    "Pemanggilan inference API",
+                    "Konfigurasi resolusi & style preset",
+                    "Optimasi waktu inferensi"
+                ]
+            },
+            {
+                "title": "Output",
+                "items": [
+                    "Pengiriman gambar hasil",
+                    "Penyimpanan otomatis ke drive",
+                    "Logging permintaan"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "9",
+        "slug": "9. Batch Processing Gambar Otomatis dengan Whisk",
+        "title": "9. Batch Processing Gambar Otomatis dengan Whisk",
+        "short": "Proses batch untuk resize, optimasi, dan tagging.",
+        "image": "/projects/9.png",
+        "price": 50000,
+        "promoDiscount": 25000,
+        "couponDiscount": 5000,
+        "content": "Script & node untuk pemrosesan gambar.",
+        "sections": [
+            {
+                "title": "Input Batch",
+                "items": [
+                    "Upload banyak gambar sekaligus",
+                    "Validasi ukuran & format",
+                    "Mapping file untuk job batch"
+                ]
+            },
+            {
+                "title": "Pemrosesan",
+                "items": [
+                    "Pengiriman batch ke Whisk API",
+                    "Optimasi paralel processing",
+                    "Pengurangan noise & upscale otomatis"
+                ]
+            },
+            {
+                "title": "Output",
+                "items": [
+                    "Folder hasil otomatis",
+                    "Pengiriman ke Drive/Telegram",
+                    "Rekap status batch"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "10",
+        "slug": "10. Batch Processing Gambar Otomatis dengan Replicate",
+        "title": "10. Batch Processing Gambar Otomatis dengan Replicate",
+        "short": "Versi lanjutan dengan metadata extraction.",
+        "image": "/projects/10.png",
+        "price": 50000,
+        "promoDiscount": 25000,
+        "couponDiscount": 5000,
+        "content": "Ekstraksi metadata dan indexing.",
+        "sections": [
+            {
+                "title": "Input",
+                "items": [
+                    "Upload multipel file",
+                    "Validasi data & metadata",
+                    "Pembagian chunk batch"
+                ]
+            },
+            {
+                "title": "Generasi/Editing",
+                "items": [
+                    "Eksekusi model Replicate untuk seluruh batch",
+                    "Parameter kontrol otomatis",
+                    "Monitoring tiap job"
+                ]
+            },
+            {
+                "title": "Output",
+                "items": [
+                    "Hasil otomatis per-file",
+                    "Sinkronisasi ke cloud",
+                    "Laporan error per-item"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "11",
+        "slug": "11. Batch Processing Gambar Otomatis dengan Hugging Face",
+        "title": "11. Batch Processing Gambar Otomatis dengan Hugging Face",
+        "short": "Pipeline lengkap untuk gambar besar.",
+        "image": "/projects/11.png",
+        "price": 50000,
+        "promoDiscount": 25000,
+        "couponDiscount": 5000,
+        "content": "Tips optimasi dan storage.",
+        "sections": [
+            {
+                "title": "Input Batch",
+                "items": [
+                    "Upload gambar massal",
+                    "Pemilihan model sesuai kebutuhan",
+                    "Ekstraksi metadata awal"
+                ]
+            },
+            {
+                "title": "Pemrosesan",
+                "items": [
+                    "Inferensi berulang otomatis",
+                    "Optimasi waktu pemrosesan",
+                    "Filter kualitas output"
+                ]
+            },
+            {
+                "title": "Distribusi Output",
+                "items": [
+                    "Hasil dikemas otomatis",
+                    "Upload ke Drive/Cloud",
+                    "Log pekerjaan & statistik"
+                ]
+            }
+        ]
+    },
+    {
+        "id": "12",
+        "slug": "12. Otomatisasi Metadata Gambar dengan n8n & Gemini AI",
+        "title": "12. Otomatisasi Metadata Gambar dengan n8n & Gemini AI",
+        "short": "Auto-tagging dan metadata enrichment.",
+        "image": "/projects/12.png",
+        "price": 50000,
+        "promoDiscount": 25000,
+        "couponDiscount": 5000,
+        "content": "Penggunaan AI untuk tag otomatis.",
+        "sections": [
+            {
+                "title": "Input & Analisis",
+                "items": [
+                    "Upload gambar dari Telegram/Drive",
+                    "Analisis objek & konteks dengan Gemini",
+                    "Ekstraksi warna, objek, dan scene"
+                ]
+            },
+            {
+                "title": "Pembuatan Metadata",
+                "items": [
+                    "Pembuatan alt-text otomatis",
+                    "Pembuatan caption SEO-friendly",
+                    "Generasi keyword berbasis AI"
+                ]
+            },
+            {
+                "title": "Integrasi Output",
+                "items": [
+                    "Penyimpanan metadata ke Notion/Drive",
+                    "Penyisipan EXIF opsional",
+                    "Laporan otomatis"
+                ]
+            }
+        ]
+    }
+    
+]

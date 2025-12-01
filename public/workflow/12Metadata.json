@@ -1,0 +1,338 @@
+{
+  "name": "Adobe",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        -16
+      ],
+      "id": "2d62fa2e-fb83-40d8-a8fc-446d1c860e57",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "returnAll": true,
+        "filter": {
+          "folderId": {
+            "__rl": true,
+            "value": "1z_vnaP2iN9OBLY8gmIMNrFcgMjgKDyUk",
+            "mode": "list",
+            "cachedResultName": "Stock",
+            "cachedResultUrl": "https://drive.google.com/drive/folders/1z_vnaP2iN9OBLY8gmIMNrFcgMjgKDyUk"
+          }
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        128,
+        -16
+      ],
+      "id": "c7eee3f2-83c8-4a26-85af-b88628dc2207",
+      "name": "Search files and folders",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "lHeQMiha2R3IiocN",
+          "name": "Adobe Stock"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        336,
+        -16
+      ],
+      "id": "10e7268b-a3ef-4a98-9d5b-949d2a24240d",
+      "name": "Download file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "lHeQMiha2R3IiocN",
+          "name": "Adobe Stock"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        544,
+        -16
+      ],
+      "id": "bad9a4f7-7c28-424d-beff-0fa5e80a9db4",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1pK9vSc0c56O8vVa6sAFiKArzvfeH38nK5ILFPKBHb4A",
+          "mode": "list",
+          "cachedResultName": "Gambar",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1pK9vSc0c56O8vVa6sAFiKArzvfeH38nK5ILFPKBHb4A/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1pK9vSc0c56O8vVa6sAFiKArzvfeH38nK5ILFPKBHb4A/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Keywords": "={{ $json.Keywords }}",
+            "Category": "1",
+            "Title": "={{ $json.Title }}",
+            "File Name": "={{ $('Loop Over Items').item.json.name }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "File Name",
+              "displayName": "File Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Keywords",
+              "displayName": "Keywords",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Category",
+              "displayName": "Category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Releases",
+              "displayName": "Releases",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1376,
+        0
+      ],
+      "id": "737a467d-3f76-46dd-b223-ea5346212d63",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "lZDnh6I5aimGRZaf",
+          "name": "Adobe Stock"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        784,
+        0
+      ],
+      "id": "abb0dac1-ad0e-4db2-b8d9-774518a2e920",
+      "name": "Wait",
+      "webhookId": "38a9a6af-39b8-4bd7-888f-0cc5b133ede5"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Ambil item pertama dari input\nconst input = $input.first().json;\n\n// Path ke teks JSON dari Gemini\nconst rawJson = input.content?.parts?.[0]?.text;\n\nif (typeof rawJson !== 'string') {\n  throw new Error('Tidak menemukan field content.parts[0].text');\n}\n\n// Bersihkan pembungkus code block kalau ada\nconst cleanedJson = rawJson.replace(/```json\\n?|```/g, '');\n\n// Parse menjadi array\nconst parsedData = JSON.parse(cleanedJson);\n\n// Pastikan array\nif (!Array.isArray(parsedData)) {\n  throw new Error('Data yang di-parse bukan array.');\n}\n\n// Format output agar sesuai dengan Google Sheets node\nreturn parsedData.map(item => ({\n  json: {\n    Title: item.Title || '',\n    Description: item.Description || '',\n    Keywords: Array.isArray(item.Keywords)\n      ? item.Keywords.join(',')\n      : (item.Keywords || '')\n  }\n}));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1184,
+        0
+      ],
+      "id": "fd5f0915-b32e-4f79-a5a7-3f494ef9de43",
+      "name": "Rapikan output"
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "operation": "analyze",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "text": "=Generate metadata for an image in valid JSON formar. The output should be an array of objects, where each object has:\n- \"Title\": A short, descriptive title for the image\n- \"Description\": A compelling description of the image for stock photography\n- \"Keywords\": An array pf exactly 25 relevant keywords. The keywords mush have maximum 30 characters.\n\nEnsure the responses is valid JSON without any markdown formatting. Example output:\n[\n  {\n    \"Title\": \"Sunset Over the Ocean\"\n    \"Description\": \"A breathaking view of the sun setting over the cale ocean, with golden hues reflecting off the watre\"\n    \"Keywords\": \"sunset, ocean, water, sea, golden hour, nature, scenic, landscape, travel, peaceful\"\n  }\n]",
+        "inputType": "binary",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        992,
+        0
+      ],
+      "id": "bccf7a54-3d38-40a9-bf27-bfe93b982ed2",
+      "name": "Analyze image",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "ejNzZiGUlSmz6VHZ",
+          "name": "Adobe Stock"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Search files and folders",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search files and folders": {
+      "main": [
+        [
+          {
+            "node": "Download file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download file": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Analyze image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rapikan output": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze image": {
+      "main": [
+        [
+          {
+            "node": "Rapikan output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "9b741d41-c635-4615-81e3-b4090471b5d7",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "8fc33079a1808f7a3e339820fb6ca5a87480e3bbb783035d112b25bbdca74cd8"
+  },
+  "id": "pucYwbqWkx41XWEs",
+  "tags": []
+}

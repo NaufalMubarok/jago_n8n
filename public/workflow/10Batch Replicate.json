@@ -1,0 +1,328 @@
+{
+  "name": "batch image with replicate",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -176,
+        96
+      ],
+      "id": "0cc703ee-2746-4ee2-863b-8deb8c7c3520",
+      "name": "Telegram Trigger1",
+      "webhookId": "71ab1f90-828c-4e17-957c-f0bfe944d68b",
+      "credentials": {
+        "telegramApi": {
+          "id": "VKHxunjb8SNERwQi",
+          "name": "replicate bot img"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "binaryData": true,
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1632,
+        96
+      ],
+      "id": "060fcfcc-ff84-41b2-8123-7549831e6190",
+      "name": "Send a photo message1",
+      "webhookId": "352e2f6d-d14d-4aea-a621-3db4b4b72c4f",
+      "credentials": {
+        "telegramApi": {
+          "id": "VKHxunjb8SNERwQi",
+          "name": "replicate bot img"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.urls.get }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Token "
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        928,
+        112
+      ],
+      "id": "b76522c8-6561-4d52-a0e1-0f76ccbefdc0",
+      "name": "Check result2"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.replicate.com/v1/predictions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Token "
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"version\": \"google/imagen-4\",\n  \"input\": {\n    \"prompt\": \"{{ $('Telegram Trigger1').item.json.message.text }}\"\n  }\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        496,
+        112
+      ],
+      "id": "f8e4b641-28ad-47c5-91cb-92314376a746",
+      "name": "Generate image2"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.output }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Token "
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1424,
+        96
+      ],
+      "id": "d30ec6c4-369c-4d0c-a5a7-88b237134857",
+      "name": "Download image2"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5989707c-b73b-463e-a8a9-48a4666697db",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "succeeded",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1152,
+        112
+      ],
+      "id": "7656b9ab-749c-4df1-b41f-359796a3222d",
+      "name": "If1"
+    },
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        736,
+        112
+      ],
+      "id": "bb2c3bbd-18ea-4a25-b936-dad010f4cf73",
+      "name": "Wait1",
+      "webhookId": "c4fb1e74-023e-4107-b530-79ad8a7d47a9"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  { json: { prompt: $json.message.text } },\n  { json: { prompt: $json.message.text } },\n  { json: { prompt: $json.message.text } },\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        32,
+        96
+      ],
+      "id": "f9139ee8-7c05-4f20-a5ea-58bee81ad4f2",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        240,
+        96
+      ],
+      "id": "70ed2884-f6d8-473f-b5ff-deb58fc1c88a",
+      "name": "Loop Over Items"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a photo message1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check result2": {
+      "main": [
+        [
+          {
+            "node": "If1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate image2": {
+      "main": [
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download image2": {
+      "main": [
+        [
+          {
+            "node": "Send a photo message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If1": {
+      "main": [
+        [
+          {
+            "node": "Download image2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Check result2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Generate image2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "0c9eea8e-230c-4e07-a670-1f7a6c1d6fad",
+  "meta": {
+    "instanceId": "9f50c3a54d7e4c591ec0ac4c965b7a2d02bc64a7088b6857d1a86138c09c43ba"
+  },
+  "id": "wxIO2pZt5RwUREha",
+  "tags": []
+}

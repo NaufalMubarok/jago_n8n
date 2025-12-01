@@ -1,0 +1,134 @@
+{
+  "name": "Generate image with hugging face model",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        368,
+        2800
+      ],
+      "id": "a5d7d48d-4e24-4ed7-8daf-c658b4409e6b",
+      "name": "Telegram Trigger1",
+      "webhookId": "71ab1f90-828c-4e17-957c-f0bfe944d68b",
+      "credentials": {
+        "telegramApi": {
+          "id": "1sFTNbs2XvZZLbUI",
+          "name": "hugface"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "binaryData": true,
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        992,
+        2800
+      ],
+      "id": "6c1a2df1-8f32-443f-b5eb-5424dadd8a1e",
+      "name": "Send a photo message1",
+      "webhookId": "352e2f6d-d14d-4aea-a621-3db4b4b72c4f",
+      "credentials": {
+        "telegramApi": {
+          "id": "1sFTNbs2XvZZLbUI",
+          "name": "hugface"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-schnell",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer "
+            },
+            {
+              "name": "Accept",
+              "value": "image/png"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "inputs",
+              "value": "={{ $json.message.text.replace(/\"/g, \"\\\"\") }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        688,
+        2800
+      ],
+      "id": "ec96dad6-4dae-4793-8049-1dc7397c0d16",
+      "name": "Generate Image"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Generate Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a photo message1": {
+      "main": [
+        []
+      ]
+    },
+    "Generate Image": {
+      "main": [
+        [
+          {
+            "node": "Send a photo message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "a5e5e363-5907-4d27-abbf-cc5d2c09c819",
+  "meta": {
+    "instanceId": "9f50c3a54d7e4c591ec0ac4c965b7a2d02bc64a7088b6857d1a86138c09c43ba"
+  },
+  "id": "Uraj0CI1Gow2ubtL",
+  "tags": []
+}

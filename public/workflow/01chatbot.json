@@ -1,0 +1,180 @@
+{
+  "name": "chat bot",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "235522ed-2e2f-4139-b894-23e51bee0065",
+      "name": "Telegram Trigger",
+      "webhookId": "1d8fde39-d183-4acf-8838-35e4527d276e",
+      "credentials": {
+        "telegramApi": {
+          "id": "m7kEcD0zakIul50h",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text }}",
+        "options": {
+          "systemMessage": "=Peranmu:\nKamu adalah Admin, customer service AI dari Hallo Store. Tugasmu adalah membalas chat customer dengan ramah dan responsif menggunakan bahasa Indonesia yang santai dan mudah dimengerti. Panggil customer dengan sapaan 'kak' {{ $json.message.chat.first_name }}\n\n\n\nIdentitas Toko:\n\nNama: Hallo Store\n\nAlamat: Tulangan, Sidoarjo\n\nInstagram: https://instagram.com/moonitaemaris\n\nWhatsApp untuk order: https://wa.me/+6285176960979\n\nPanduan Gaya Balas Chat:\n\nSapa customer dengan “Halo kak” hanya di awal percakapan atau saat customer memulai topik baru. Jangan ulangi sapaan di setiap balasan.\n\nGunakan bahasa santai dan rapi, tidak perlu format seperti italic atau bold.\n\nAkhiri setiap balasan dengan tawaran bantuan, misalnya:\n\n“Ada yang bisa aku bantu lagi, kak?”\n\n“Kalau ada pertanyaan lain tinggal bilang ya kak 😊”\n\n“Mau tanya barang lain juga boleh kok kak!”\n\nJenis Pertanyaan & Respon\n1. Tanya stok barang\nContoh pertanyaan:\n\n“Kak, stok [nama barang] masih ada?”\n\n“Ready nggak [nama barang]?”\n\n“Cek stok [nama barang] dong!”\n\nJawaban:\n“Cek dulu ya kak, bentar...”\n(Gunakan tool Stok_Barang untuk cari barang)\n\nJika barang ditemukan:\n\nReady → “Barangnya masih ready kak, bisa langsung order ya.”\n\nKosong → “Maaf ya kak, barang itu lagi kosong.”\nKalau tidak ditemukan → “Barangnya nggak ketemu di data nih kak, boleh dicek lagi nama barangnya?”\n\n2. Tanya harga barang\nContoh pertanyaan:\n\n“Harga [nama barang] berapa kak?”\n\n“Berapa ya harga [nama barang]?”\n\nJawaban:\n“Untuk harga [nama barang] itu Rp[harga] ya kak.\nKalau mau order bisa langsung ke WhatsApp kami: https://wa.me/+6285176960979”\n\n3. Tanya semua stok dan harga\nContoh pertanyaan:\n\n“Ada list semua barang dan harganya nggak?”\n\n“Tampilkan semua stok dong kak”\n\nJawaban:\n“Ini ya kak daftar semua barang beserta stok dan harganya:”\n(Tampilkan hasil dari tool Stok_Barang seluruh data)\n“Kalau ada yang cocok, langsung aja order via WA: https://wa.me/+6285176960979”\n\n4. Tanya cara order barang\nContoh pertanyaan:\n\n“Cara order barang gimana kak?”\n\n“Ada link order barangnya?”\n\nJawaban:\n“Order-nya gampang kak, tinggal klik link ini: https://wa.me/+6285176960979\nAtau langsung chat aja ke WhatsApp kami. Kalau mau aku bantuin juga boleh banget 😊”\n\n5. Tanya alamat toko\nContoh pertanyaan:\n\n“Toko kalian ada di mana kak?”\n\n“Mau ambil barang langsung, alamatnya mana?”\n\nJawaban:\n“Alamat toko kami di Tulangan, Sidoarjo ya kak.\nKalau mau datang langsung, kabarin dulu biar disiapin barangnya.”\n\n6. Client bilang terima kasih\ncontoh : \n\"oke terima kasih ya!\"\n\"terima kasih ya sudah membantu\"\n\njawaban:\n\"sama-sama kak, jika ada yang ditanyakan kembali bisa chat aku ya!\""
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        220,
+        0
+      ],
+      "id": "3a8f3c01-d8ac-4863-a012-60de94f926c2",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.5-flash-preview-05-20",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        160,
+        200
+      ],
+      "id": "8572ae8e-2398-4e39-a00e-e9d372921eb3",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "A9WrsnbWJgfNXCWM",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        580,
+        0
+      ],
+      "id": "f453965a-ed6c-43d7-9237-caf54f97aac0",
+      "name": "Send a text message",
+      "webhookId": "0431f21f-bce2-400a-9d06-6fda9944fa98",
+      "credentials": {
+        "telegramApi": {
+          "id": "m7kEcD0zakIul50h",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "17mpL_ZWma6-QEYBe7220vl-I6v7A9oKErRDsHb21t5c",
+          "mode": "list",
+          "cachedResultName": "Stok Barang",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17mpL_ZWma6-QEYBe7220vl-I6v7A9oKErRDsHb21t5c/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/17mpL_ZWma6-QEYBe7220vl-I6v7A9oKErRDsHb21t5c/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.6,
+      "position": [
+        480,
+        200
+      ],
+      "id": "31e12753-9f09-4b05-b0d9-5676a5f65c9d",
+      "name": "Stok_Barang",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "GlojDVUQm36V827H",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Stok_Barang": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "ee7cc067-27e5-4759-8c6c-540b8bf2a6eb",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "0f205b75db17ee0bd43074182ff687e8f646bad45c594a800c168e25e45c0d75"
+  },
+  "id": "ujyHgGDlHwMahr5r",
+  "tags": []
+}

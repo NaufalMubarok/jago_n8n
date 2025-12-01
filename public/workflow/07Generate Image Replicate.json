@@ -1,0 +1,270 @@
+{
+  "name": "Generate image with replicate",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {
+          "download": true
+        }
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1168,
+        -112
+      ],
+      "id": "b87a3d5f-d889-41b6-9ab2-30beb295ce82",
+      "name": "Telegram Trigger",
+      "webhookId": "71ab1f90-828c-4e17-957c-f0bfe944d68b",
+      "credentials": {
+        "telegramApi": {
+          "id": "FOlqSQ1JtOFvlzek",
+          "name": "replicate"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "binaryData": true,
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        208,
+        -128
+      ],
+      "id": "935f9c78-0fba-4ecb-b705-adea2050e558",
+      "name": "Send a photo message",
+      "webhookId": "352e2f6d-d14d-4aea-a621-3db4b4b72c4f",
+      "credentials": {
+        "telegramApi": {
+          "id": "FOlqSQ1JtOFvlzek",
+          "name": "replicate"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.urls.get }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Token "
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -544,
+        -112
+      ],
+      "id": "b0b258ff-6c22-465e-9780-f3f423c7300a",
+      "name": "Check result"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.replicate.com/v1/predictions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Token "
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"version\": \"google/imagen-4\",\n  \"input\": {\n    \"prompt\": \"{{ $json.message.text }}\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -944,
+        -112
+      ],
+      "id": "d3841d9c-ee96-49b6-a14b-5d636c1e63d3",
+      "name": "Generate image"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.output }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Token "
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -64,
+        -128
+      ],
+      "id": "eb7f6949-ed17-4e66-9416-35b039f65252",
+      "name": "Download image"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5989707c-b73b-463e-a8a9-48a4666697db",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "succeeded",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -320,
+        -112
+      ],
+      "id": "4918032b-53a7-43a8-b6f7-46b204a1eaf2",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -736,
+        -112
+      ],
+      "id": "55640772-1b80-4c39-8f28-296311eeeaef",
+      "name": "Wait",
+      "webhookId": "c4fb1e74-023e-4107-b530-79ad8a7d47a9"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Generate image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check result": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate image": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download image": {
+      "main": [
+        [
+          {
+            "node": "Send a photo message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Download image",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Check result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "49cbaad6-242b-4464-9af5-2d009baf82ee",
+  "meta": {
+    "instanceId": "9f50c3a54d7e4c591ec0ac4c965b7a2d02bc64a7088b6857d1a86138c09c43ba"
+  },
+  "id": "aGKZVV9VqYUVOr1u",
+  "tags": []
+}

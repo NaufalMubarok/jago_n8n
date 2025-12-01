@@ -1,0 +1,164 @@
+{
+  "name": "Generate Image With Whisk",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "imagePanels[0].generatedImages[0].encodedImage",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        2992,
+        -16
+      ],
+      "id": "4770b0fb-a128-4bd8-b6a1-667383a442ab",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "action": "generate",
+        "dataPropertyName": "uuid"
+      },
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 1,
+      "position": [
+        3200,
+        -16
+      ],
+      "id": "8dbe6d52-e988-4a3e-a3c0-0a95353932a6",
+      "name": "Crypto"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://aisandbox-pa.googleapis.com/v1/whisk:generateImage",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBearerAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"clientContext\": {\n    \"workflowId\": \"82ef7a35-c92e-42e0-b4a0-c58169593790\",\n    \"tool\": \"BACKBONE\",\n    \"sessionId\": \";1750214024285\"\n  },\n  \"imageModelSettings\": {\n    \"imageModel\": \"IMAGEN_3_5\",\n    \"aspectRatio\": \"IMAGE_ASPECT_RATIO_LANDSCAPE\"\n  },\n  \"prompt\": \"{{ $json.message.text.replace(/\\\"/g, '\\\\\\\"') }}\",\n  \"mediaCategory\": \"MEDIA_CATEGORY_BOARD\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2800,
+        -16
+      ],
+      "id": "40580765-cfdb-4128-9d31-c57e4c52adf2",
+      "name": "HTTP Request1",
+      "credentials": {
+        "httpBearerAuth": {
+          "id": "aoprHInJAFAdnB02",
+          "name": "Bearer Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        2592,
+        -16
+      ],
+      "id": "5fba2e2b-ff54-4c64-9213-3ffda13ab7fd",
+      "name": "Telegram Trigger1",
+      "webhookId": "71ab1f90-828c-4e17-957c-f0bfe944d68b",
+      "credentials": {
+        "telegramApi": {
+          "id": "FyCzeDhev6ztMdM4",
+          "name": "image bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "={{ $('Telegram Trigger1').item.json.message.chat.id }}",
+        "binaryData": true,
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3440,
+        -16
+      ],
+      "id": "4a2f4717-7669-4f0f-af13-a0d3969bcda0",
+      "name": "Send a photo message1",
+      "webhookId": "352e2f6d-d14d-4aea-a621-3db4b4b72c4f",
+      "credentials": {
+        "telegramApi": {
+          "id": "FyCzeDhev6ztMdM4",
+          "name": "image bot"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Crypto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crypto": {
+      "main": [
+        [
+          {
+            "node": "Send a photo message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "6a614fd5-d56d-4d0f-a0df-7234bdb2062e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "9f50c3a54d7e4c591ec0ac4c965b7a2d02bc64a7088b6857d1a86138c09c43ba"
+  },
+  "id": "BN8ZxCUqXgk44TJ0",
+  "tags": []
+}

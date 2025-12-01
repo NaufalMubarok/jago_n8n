@@ -1,0 +1,286 @@
+========================================
+CONTOH KODE UNTUK TAMBAHKAN EFEK DI index.tsx
+========================================
+
+📌 STEP 1: Tambahkan Import di Bagian Atas
+========================================
+Cari baris ini di index.tsx:
+---
+import Image from "next/image";
+import projects from "../data/projects.json";
+import Navbar from "../components/Navbar";
+---
+
+Ganti jadi:
+---
+import Image from "next/image";
+import projects from "../data/projects.json";
+import Navbar from "../components/Navbar";
+import ScrollReveal from "../components/ScrollReveal";
+import { useEffect, useState } from "react";
+---
+
+
+📌 STEP 2: Tambahkan Mouse Tracking
+========================================
+Cari baris ini:
+---
+export default function Home() {
+  return (
+    <div className="min-h-screen bg-white text-slate-900">
+---
+
+Ganti jadi:
+---
+export default function Home() {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-white text-slate-900 overflow-hidden">
+---
+
+
+📌 STEP 3: Efek di Hero Section (Blob yang Melayang)
+========================================
+Cari baris ini:
+---
+<div className="pointer-events-none absolute inset-0 -z-10">
+  <div className="absolute -top-32 -right-24 h-72 w-72 rounded-full bg-gradient-to-br from-emerald-200 to-emerald-300 blur-3xl opacity-60" />
+  <div className="absolute top-40 -left-32 h-80 w-80 rounded-full bg-gradient-to-br from-sky-200 to-blue-300 blur-3xl opacity-40" />
+</div>
+---
+
+Ganti jadi:
+---
+<div className="pointer-events-none absolute inset-0 -z-10">
+  <div 
+    className="absolute -top-32 -right-24 h-72 w-72 rounded-full bg-gradient-to-br from-emerald-200 to-emerald-300 blur-3xl opacity-60 animate-float"
+    style={{
+      transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`
+    }}
+  />
+  <div 
+    className="absolute top-40 -left-32 h-80 w-80 rounded-full bg-gradient-to-br from-sky-200 to-blue-300 blur-3xl opacity-40 animate-float"
+    style={{
+      transform: `translate(${mousePosition.x * -0.015}px, ${mousePosition.y * -0.015}px)`,
+      animationDelay: '1s'
+    }}
+  />
+</div>
+---
+
+
+📌 STEP 4: Wrap Hero Content dengan ScrollReveal
+========================================
+Cari baris ini:
+---
+<div className="max-w-6xl mx-auto grid md:grid-cols-[1.15fr,1fr] gap-12 items-center">
+  {/* Left: copy */}
+  <div>
+    <div className="inline-flex items-center...
+---
+
+Tambahkan ScrollReveal:
+---
+<div className="max-w-6xl mx-auto grid md:grid-cols-[1.15fr,1fr] gap-12 items-center">
+  {/* Left: copy */}
+  <ScrollReveal direction="left">
+  <div>
+    <div className="inline-flex items-center...
+---
+
+Dan tutup sebelum </div> terakhir di section kiri:
+---
+        </div>
+      </div>
+    </div>
+  </div>
+  </ScrollReveal>  {/* <-- Tambahkan ini */}
+
+  {/* Right: visual */}
+  <ScrollReveal direction="right" delay={200}>  {/* <-- Tambahkan ini */}
+  <div className="relative animate-float">
+---
+
+
+📌 STEP 5: Button dengan Shimmer Effect
+========================================
+Cari button "Lihat Semua Produk":
+---
+<button
+  type="button"
+  onClick={() => {
+    const el = document.getElementById("products");
+    el?.scrollIntoView({ behavior: "smooth" });
+  }}
+  className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-emerald-600..."
+>
+  Lihat Semua Produk
+</button>
+---
+
+Ganti jadi:
+---
+<button
+  type="button"
+  onClick={() => {
+    const el = document.getElementById("products");
+    el?.scrollIntoView({ behavior: "smooth" });
+  }}
+  className="relative px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm md:text-base font-semibold shadow-md shadow-emerald-500/30 transition hover:scale-105 hover:shadow-lg overflow-hidden group"
+>
+  <span className="relative z-10">Lihat Semua Produk</span>
+  <div className="absolute inset-0 shimmer opacity-0 group-hover:opacity-100"></div>
+</button>
+---
+
+
+📌 STEP 6: Product Cards dengan 3D Effect
+========================================
+Cari mapping products:
+---
+{(projects as Project[]).map((p) => (
+  <a
+    key={p.id}
+    href={`/projects/${p.slug}`}
+    className="group rounded-2xl border border-slate-800..."
+  >
+---
+
+Ganti jadi:
+---
+{(projects as Project[]).map((p, index) => (
+  <ScrollReveal key={p.id} delay={index * 100}>
+  <a
+    href={`/projects/${p.slug}`}
+    className="group rounded-2xl border border-slate-800 bg-slate-900/60 hover:border-emerald-400 transition card-3d hover:shadow-[0_18px_60px_rgba(15,23,42,0.8)] hover:shadow-emerald-500/20"
+  >
+---
+
+Dan tutup dengan </ScrollReveal> setelah </a>:
+---
+    </div>
+  </a>
+  </ScrollReveal>
+))}
+---
+
+
+📌 STEP 7: Benefit Cards dengan ScrollReveal
+========================================
+Cari BenefitCard pertama:
+---
+<div className="grid md:grid-cols-3 gap-8">
+  <BenefitCard
+    icon="🚀"
+---
+
+Wrap dengan ScrollReveal:
+---
+<div className="grid md:grid-cols-3 gap-8">
+  <ScrollReveal delay={100}>
+  <BenefitCard
+    icon="🚀"
+    title="Tanpa Coding"
+    desc="Tarik & lepas, sambungkan ke Telegram, WhatsApp, Google Sheet, Notion, dll."
+  />
+  </ScrollReveal>
+  
+  <ScrollReveal delay={200}>
+  <BenefitCard
+    icon="💡"
+    title="Contoh Nyata"
+    desc="Bukan teori. Semua diambil dari kebutuhan bisnis, agensi, freelancer, dan kreator."
+  />
+  </ScrollReveal>
+  
+  <ScrollReveal delay={300}>
+  <BenefitCard
+    icon="⚡"
+    title="Bisa Dikembangkan"
+    desc="Setelah jalan, kamu bisa gandakan, gabungkan, atau kembangkan sendiri."
+  />
+  </ScrollReveal>
+</div>
+---
+
+
+📌 STEP 8: Pricing Section dengan Glow Effect
+========================================
+Cari pricing section:
+---
+<section
+  id="pricing"
+  className="px-6 md:px-20 py-28 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-50"
+>
+  <div className="max-w-4xl mx-auto">
+    <div className="rounded-3xl border border-emerald-500/60..."
+---
+
+Ganti jadi:
+---
+<section
+  id="pricing"
+  className="px-6 md:px-20 py-28 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-50"
+>
+  <div className="max-w-4xl mx-auto">
+    <ScrollReveal>
+    <div className="rounded-3xl border border-emerald-500/60 bg-slate-900/70 p-8 md:p-10 shadow-[0_18px_60px_rgba(15,118,110,0.45)] animate-glow">
+---
+
+Dan tutup sebelum </div> terakhir di pricing:
+---
+        </div>
+      </div>
+    </div>
+    </ScrollReveal>
+  </div>
+</section>
+---
+
+
+📌 STEP 9: Button Beli Paket dengan Shimmer
+========================================
+Cari button "Beli Paket Lengkap":
+---
+<a
+  href="/checkout"
+  className="mt-5 inline-flex items-center justify-center px-5 sm:px-7 py-2.5 sm:py-3..."
+>
+  Beli Paket Lengkap
+</a>
+---
+
+Ganti jadi:
+---
+<a
+  href="/checkout"
+  className="mt-5 inline-flex items-center justify-center px-5 sm:px-7 py-2.5 sm:py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold shadow-lg shadow-emerald-500/40 transition text-sm md:text-base hover:scale-105 hover:shadow-xl relative overflow-hidden group"
+>
+  <span className="relative z-10">Beli Paket Lengkap</span>
+  <div className="absolute inset-0 shimmer opacity-0 group-hover:opacity-100"></div>
+</a>
+---
+
+
+========================================
+✅ SELESAI!
+========================================
+
+Sekarang website Anda punya efek keren:
+✅ Scroll reveal animation
+✅ Floating blobs dengan parallax mouse
+✅ 3D card hover effect
+✅ Shimmer effect di button
+✅ Glow pulse di pricing
+✅ Gradient animation
+
+Refresh browser dan scroll untuk lihat efeknya! 🎉

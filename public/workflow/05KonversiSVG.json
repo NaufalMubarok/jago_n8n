@@ -1,0 +1,297 @@
+{
+  "name": "image to vectorize",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://api.telegram.org/bot8272223388:AAGFcqCJ9ru8Qf6IA8EPxhVJpZDtOEDFOW8/getFile",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "file_id",
+              "value": "={{ $json.message.photo[2].file_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "fc676b6f-cd6b-417e-8995-72869779de58",
+      "name": "Telegram Get File Path",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        176,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "const filePath = $json.result.file_path;\nreturn [{\n  json: {\n    src: `https://api.telegram.org/file/bot8272223388:AAGFcqCJ9ru8Qf6IA8EPxhVJpZDtOEDFOW8/${filePath}`\n  }\n}];"
+      },
+      "id": "f3b68fb7-d2de-48d4-b4d3-c9110a073e81",
+      "name": "Build Image URL",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        368,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "id": "53ba2b91-6162-4eb1-835c-807da99cbd0c",
+      "name": "Telegram Trigger2",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "37fc95ba-0f11-4582-9383-b9002551ccb6",
+      "credentials": {
+        "telegramApi": {
+          "id": "JHAiGQRgLPNhQAIJ",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendDocument",
+        "chatId": "={{ $('Telegram Trigger2').item.json.message.from.id }}",
+        "binaryData": true,
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1200,
+        0
+      ],
+      "id": "f689d390-730d-411c-baaa-95d6f39bc0f3",
+      "name": "Send a document",
+      "webhookId": "6d9bb72a-8158-4234-8a1d-0187c545bb4d",
+      "credentials": {
+        "telegramApi": {
+          "id": "JHAiGQRgLPNhQAIJ",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{$json.src}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        528,
+        0
+      ],
+      "id": "7ec0e41e-6e07-4868-bbe8-df76691bafb6",
+      "name": "download image"
+    },
+    {
+      "parameters": {
+        "operation": "binaryToPropery",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        688,
+        0
+      ],
+      "id": "b6732cbc-4c48-4098-9cec-324ee019eb18",
+      "name": "Mengubah menjadi base64"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.aspose.cloud/v4.0/html/vectorization/png/sync",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $json.access_token }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"InputBase64\":\"{{ $('Mengubah menjadi base64').item.json.data }}\",\n    \"Options\": {\n        \"ErrorThreshold\": 20,\n        \"MaxIterations\": 50,\n        \"ColorLimit\": 8,\n        \"LineWidth\": 1.0\n    }\n}",
+        "options": {
+          "response": {
+            "response": {
+              "fullResponse": true,
+              "neverError": true,
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1024,
+        0
+      ],
+      "id": "aeed413c-3373-4a1f-b428-301fbcaa5797",
+      "name": "Vectorize"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.aspose.cloud/connect/token",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/x-www-form-urlencoded"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "form-urlencoded",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "client_id",
+              "value": "5674dd4f-8158-42f7-8eae-ec6ba931700a"
+            },
+            {
+              "name": "client_secret",
+              "value": "1ec866558ef33e2c5125b4be9d0123a3"
+            },
+            {
+              "name": "grant_type",
+              "value": "client_credentials"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        848,
+        0
+      ],
+      "id": "a7acbdf3-c9b3-447d-8973-2a94b9813bff",
+      "name": "Bearer token"
+    },
+    {
+      "parameters": {
+        "content": "## Image to Vectorize.svg\n",
+        "height": 448,
+        "width": 1584
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -112,
+        -192
+      ],
+      "typeVersion": 1,
+      "id": "af5d85cf-5e02-4a1f-831a-1236ad6bb55e",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Get File Path": {
+      "main": [
+        [
+          {
+            "node": "Build Image URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Image URL": {
+      "main": [
+        [
+          {
+            "node": "download image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger2": {
+      "main": [
+        [
+          {
+            "node": "Telegram Get File Path",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "download image": {
+      "main": [
+        [
+          {
+            "node": "Mengubah menjadi base64",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mengubah menjadi base64": {
+      "main": [
+        [
+          {
+            "node": "Bearer token",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vectorize": {
+      "main": [
+        [
+          {
+            "node": "Send a document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Bearer token": {
+      "main": [
+        [
+          {
+            "node": "Vectorize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "9fc4a5fd-83fa-4a2e-9a19-1928a16252a2",
+  "meta": {
+    "instanceId": "8fc33079a1808f7a3e339820fb6ca5a87480e3bbb783035d112b25bbdca74cd8"
+  },
+  "id": "9QOeVBoLdCTFOuJx",
+  "tags": []
+}
