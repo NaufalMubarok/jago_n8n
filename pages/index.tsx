@@ -356,66 +356,169 @@ export default function Home() {
         id="pricing"
         className="px-6 md:px-20 py-28 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-50"
       >
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <ScrollReveal>
-            <div className="rounded-3xl border border-emerald-500/60 bg-slate-900/70 p-8 md:p-10 shadow-[0_18px_60px_rgba(15,118,110,0.45)] animate-glow">
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
-                <div>
-                  <p className="text-xs font-semibold tracking-[0.2em] text-emerald-400 uppercase mb-3">
-                    Paket lengkap
-                  </p>
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3">
-                    Dapatkan semua produk sekaligus
-                  </h2>
-                  <p className="text-sm md:text-base text-slate-300 max-w-xl">
-                    Bayar sekali, akses semua produk termasuk update dan dukungan.
+            <div className="text-center mb-12">
+              <p className="text-xs font-semibold tracking-[0.2em] text-emerald-400 uppercase mb-3">
+                Pilihan Paket
+              </p>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
+                Pilih sesuai kebutuhanmu
+              </h2>
+              <p className="text-sm md:text-base text-slate-400 max-w-2xl mx-auto">
+                Mau belajar sendiri atau langsung jadi? Kami siap bantu.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+            {/* Paket Lengkap - DIY */}
+            <ScrollReveal delay={100}>
+              <div className="rounded-3xl border border-emerald-500/60 bg-slate-900/70 p-8 md:p-10 shadow-[0_18px_60px_rgba(15,118,110,0.45)] animate-glow h-full flex flex-col">
+                <div className="flex-1">
+                  <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-400 mb-4">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                    Paling Populer
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-bold mb-2">
+                    Paket Lengkap
+                  </h3>
+                  <p className="text-sm text-slate-400 mb-6">
+                    Belajar & praktik sendiri dengan panduan lengkap
                   </p>
 
-                  <ul className="mt-5 space-y-2 text-xs sm:text-sm text-slate-300">
-                    <li>• 11+ produk siap pakai</li>
-                    <li>• Akses & update selamanya</li>
-                    <li>• Dukungan via Telegram</li>
+                  <ul className="space-y-3 text-sm text-slate-300 mb-8">
+                    <li className="flex items-center gap-2">
+                      <svg className="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      11+ produk siap pakai
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <svg className="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      Video tutorial langkah demi langkah
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <svg className="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      Akses & update selamanya
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <svg className="w-5 h-5 text-emerald-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      Dukungan via Telegram
+                    </li>
                   </ul>
                 </div>
 
-                <div className="md:text-right">
-                  <div className="text-sm text-slate-400 mb-1">
-                    Investasi sekali, manfaat berkali-kali:
+                <div>
+                  <div className="flex items-baseline gap-2 mb-1">
+                    <span className="text-lg text-slate-500 line-through">
+                      Rp 299.000
+                    </span>
+                    <span className="text-xs text-emerald-300 font-medium">
+                      Hemat 50%
+                    </span>
                   </div>
-                  <div className="flex flex-col md:items-end gap-1">
-                    <div className="flex items-baseline gap-2 md:justify-end">
-                      <span className="text-lg text-slate-500 line-through">
-                        Rp 299.000
-                      </span>
-                    </div>
-                    <div className="flex items-baseline gap-2 md:justify-end">
-                      <span className="text-3xl md:text-4xl font-bold text-emerald-400">
-                        Rp 149.000
-                      </span>
-                      <span className="text-sm text-emerald-300 font-medium">
-                        Hemat 50%
-                      </span>
-                    </div>
-                    <p className="text-xs text-slate-400 mt-1">
-                      Diskon promo sudah diterapkan
-                    </p>
+                  <div className="text-3xl md:text-4xl font-bold text-emerald-400 mb-4">
+                    Rp 149.000
                   </div>
 
                   <a
                     href="/checkout"
-                    className="mt-5 inline-flex items-center justify-center px-5 sm:px-7 py-2.5 sm:py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold shadow-lg shadow-emerald-500/40 transition text-sm md:text-base hover:scale-105 hover:shadow-xl hover:shadow-emerald-500/60 relative overflow-hidden group"
+                    className="w-full inline-flex items-center justify-center px-5 sm:px-7 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold shadow-lg shadow-emerald-500/40 transition text-sm md:text-base hover:scale-105 hover:shadow-xl hover:shadow-emerald-500/60 relative overflow-hidden group"
                   >
                     <span className="relative z-10">Beli Paket Lengkap</span>
                     <div className="absolute inset-0 shimmer opacity-0 group-hover:opacity-100"></div>
                   </a>
 
-                  <p className="mt-3 text-xs text-slate-400">
-                    Garansi dukungan sampai berhasil digunakan.
+                  <p className="mt-3 text-xs text-slate-400 text-center">
+                    Garansi dukungan sampai berhasil digunakan
                   </p>
                 </div>
               </div>
-            </div>
-          </ScrollReveal>
+            </ScrollReveal>
+
+            {/* Jasa Pembuatan Automation */}
+            <ScrollReveal delay={200}>
+              <div className="rounded-3xl border border-sky-500/60 bg-slate-900/70 p-8 md:p-10 shadow-[0_18px_60px_rgba(14,165,233,0.25)] h-full flex flex-col">
+                <div className="flex-1">
+                  <div className="inline-flex items-center gap-2 rounded-full border border-sky-500/30 bg-sky-500/10 px-3 py-1 text-xs font-medium text-sky-400 mb-4">
+                    <span className="h-1.5 w-1.5 rounded-full bg-sky-400" />
+                    Done For You
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-bold mb-2">
+                    Jasa Pembuatan Automation
+                  </h3>
+                  <p className="text-sm text-slate-400 mb-6">
+                    Kami buatkan automation sesuai kebutuhanmu
+                  </p>
+
+                  <ul className="space-y-3 text-sm text-slate-300 mb-8">
+                    <li className="flex items-center gap-2">
+                      <svg className="w-5 h-5 text-sky-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      Konsultasi kebutuhan bisnis
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <svg className="w-5 h-5 text-sky-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      Custom workflow n8n
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <svg className="w-5 h-5 text-sky-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      Setup & konfigurasi lengkap
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <svg className="w-5 h-5 text-sky-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      Revisi sampai sesuai
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <svg className="w-5 h-5 text-sky-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      Garansi support 30 hari
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <div className="text-xs text-slate-400 mb-1">
+                    Mulai dari
+                  </div>
+                  <div className="text-3xl md:text-4xl font-bold text-sky-400 mb-4">
+                    Rp 2.000.000
+                  </div>
+
+                  <a
+                    href="https://wa.me/6281234306725?text=Halo,%20saya%20tertarik%20dengan%20jasa%20pembuatan%20automation"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full inline-flex items-center justify-center gap-2 px-5 sm:px-7 py-3 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold shadow-lg shadow-sky-500/40 transition text-sm md:text-base hover:scale-105 hover:shadow-xl hover:shadow-sky-500/60"
+                  >
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                    </svg>
+                    Hubungi via WhatsApp
+                  </a>
+
+                  <p className="mt-3 text-xs text-slate-400 text-center">
+                    Gratis konsultasi awal
+                  </p>
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
         </div>
       </section>
 

@@ -189,7 +189,7 @@ export default function ProjectDetail() {
               <div className="space-y-1">
                 <div className="flex items-baseline gap-2">
                   <h3 className="text-3xl font-bold text-emerald-400">
-                    Rp 25.000
+                    Rp 50.000
                   </h3>
                 </div>
                 <p className="text-[11px] text-slate-400">
