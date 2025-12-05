@@ -771,9 +771,6 @@ export default function Home() {
                   </svg>
                 </a>
               </div>
-              <p className="mt-5 text-sm text-slate-600 leading-relaxed">
-                Tips & update terbaru
-              </p>
             </div>
           </div>
 
