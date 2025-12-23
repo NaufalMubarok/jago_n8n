@@ -1,7 +1,7 @@
 [
     {
         "id": "1",
-        "slug": "1. Chatbot Cerdas untuk Customer Service",
+        "slug": "ChatbotCerdas",
         "title": "1. Chatbot Cerdas untuk Customer Service",
         "short": "Otomatisasi pembuatan chatbot menggunakan n8n dan OpenAI.",
         "image": "/projects/1.png",
@@ -39,7 +39,7 @@
     },
     {
         "id": "2",
-        "slug": "2. Expense Tracker - Catat Pengeluaran Otomatis dari Struk",
+        "slug": "ExpenseTracker",
         "title": "2. Expense Tracker - Catat Pengeluaran Otomatis dari Struk",
         "short": "Catat pengeluaran otomatis dengan Google Sheet dan Telegram Bot.",
         "image": "/projects/2.png",
@@ -76,7 +76,7 @@
     },
     {
         "id": "3",
-        "slug": "3. Manajemen Invoice - Kelola Tagihan",
+        "slug": "ManajemenInvoice",
         "title": "3. Manajemen Invoice - Kelola Tagihan",
         "short": "Mengubah pencatatan manual menjadi alur otomatis.",
         "image": "/projects/3.png",
@@ -113,7 +113,7 @@
     },
     {
         "id": "4",
-        "slug": "4. Upscale Gambar dengan ImgUpscaler API",
+        "slug": "UpscaleGambar-ImgUpscalerAPI",
         "title": "4. Upscale Gambar dengan ImgUpscaler API",
         "short": "Langkah demi langkah membangun bot Telegram/Slack.",
         "image": "/projects/4.png",
@@ -150,7 +150,7 @@
     },
     {
         "id": "5",
-        "slug": "5. Konversi Format Gambar ke SVG Vector",
+        "slug": "KonversiGambar",
         "title": "5. Konversi Format Gambar ke SVG Vector",
         "short": "Otomatisasi konversi gambar ke SVG/format lain.",
         "image": "/projects/5.png",
@@ -187,7 +187,7 @@
     },
     {
         "id": "6",
-        "slug": "6. AI Image Generator dengan n8n & Whisk",
+        "slug": "ImageGenerator-Whisk",
         "title": "6. AI Image Generator dengan n8n & Whisk",
         "short": "Buat dokumen dari template secara otomatis.",
         "image": "/projects/6.png",
@@ -224,7 +224,7 @@
     },
     {
         "id": "7",
-        "slug": "7. AI Image Generator dengan n8n & Replicate",
+        "slug": "ImageGenerator-Replicate",
         "title": "7. AI Image Generator dengan n8n & Replicate",
         "short": "Panduan komprehensif pembuatan bot otomatis.",
         "image": "/projects/7.png",
@@ -261,7 +261,7 @@
     },
     {
         "id": "8",
-        "slug": "8. AI Image Generator dengan n8n & Hugging Face",
+        "slug": "ImageGenerator-HuggingFace",
         "title": "8. AI Image Generator dengan n8n & Hugging Face",
         "short": "Generate form & collect response otomatis.",
         "image": "/projects/8.png",
@@ -298,7 +298,7 @@
     },
     {
         "id": "9",
-        "slug": "9. Batch Processing Gambar Otomatis dengan Whisk",
+        "slug": "BatchProcessingGambar-Whisk",
         "title": "9. Batch Processing Gambar Otomatis dengan Whisk",
         "short": "Proses batch untuk resize, optimasi, dan tagging.",
         "image": "/projects/9.png",
@@ -335,7 +335,7 @@
     },
     {
         "id": "10",
-        "slug": "10. Batch Processing Gambar Otomatis dengan Replicate",
+        "slug": "BatchProcessingGambar-Replicate",
         "title": "10. Batch Processing Gambar Otomatis dengan Replicate",
         "short": "Versi lanjutan dengan metadata extraction.",
         "image": "/projects/10.png",
@@ -372,7 +372,7 @@
     },
     {
         "id": "11",
-        "slug": "11. Batch Processing Gambar Otomatis dengan Hugging Face",
+        "slug": "BatchProcessingGambar-HuggingFace",
         "title": "11. Batch Processing Gambar Otomatis dengan Hugging Face",
         "short": "Pipeline lengkap untuk gambar besar.",
         "image": "/projects/11.png",
@@ -409,7 +409,7 @@
     },
     {
         "id": "12",
-        "slug": "12. Otomatisasi Metadata Gambar dengan n8n & Gemini AI",
+        "slug": "OtomatisasiMetadataGambar-GeminiAI",
         "title": "12. Otomatisasi Metadata Gambar dengan n8n & Gemini AI",
         "short": "Auto-tagging dan metadata enrichment.",
         "image": "/projects/12.png",

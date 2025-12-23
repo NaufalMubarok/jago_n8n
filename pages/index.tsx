@@ -150,7 +150,7 @@ export default function Home() {
                     <div className="relative w-full pt-[56.25%]">
                       <iframe
                         className="absolute inset-0 w-full h-full"
-                        src="https://www.youtube.com/embed/Fy1UCBcgF2o?start=34"
+                        src="https://www.youtube.com/embed/jU8283ENG_g"
                         title="Intro n8n"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowFullScreen
@@ -623,20 +623,44 @@ export default function Home() {
 
           <div className="space-y-5">
             <FAQ
+              q="Apa itu n8n dan kenapa harus pakai n8n?"
+              a="n8n adalah platform automasi open-source yang memungkinkan Anda menghubungkan berbagai aplikasi dan layanan tanpa coding. Dengan n8n, Anda bisa mengotomasi tugas berulang, menghemat waktu, dan fokus pada hal yang lebih penting untuk bisnis Anda."
+            />
+            <FAQ
               q="Cocok untuk pemula?"
-              a="Sangat cocok. Sudah ada panduan lengkap langkah demi langkah."
-            />
-            <FAQ
-              q="Akses berlaku selamanya?"
-              a="Ya. Akses selamanya termasuk update ke depannya."
-            />
-            <FAQ
-              q="Ada bantuan kalau mentok?"
-              a="Ada. Hubungi via Telegram, kami bantu sampai berhasil."
+              a="Sangat cocok. Sudah ada panduan lengkap langkah demi langkah dengan video tutorial. Bahkan tanpa pengalaman teknis sebelumnya, Anda bisa mengikuti dan menjalankan automation dalam waktu singkat."
             />
             <FAQ
               q="Perlu skill coding?"
-              a="Tidak. Cukup ikuti panduan yang sudah disiapkan."
+              a="Tidak. Semua produk dibuat dengan sistem drag-and-drop. Cukup ikuti panduan yang sudah disiapkan, hubungkan akun-akun yang diperlukan, dan automation siap berjalan."
+            />
+            <FAQ
+              q="Apakah produk bisa dikustomisasi sesuai kebutuhan saya?"
+              a="Tentu! Setelah Anda impor workflow, Anda bebas memodifikasi, menambah, atau mengurangi fitur sesuai kebutuhan bisnis Anda. Semua source code terbuka untuk dikembangkan."
+            />
+            <FAQ
+              q="Butuh server sendiri atau bisa pakai cloud?"
+              a="Fleksibel. Anda bisa install n8n di server sendiri (VPS), atau gunakan n8n Cloud yang lebih praktis. Panduan kami mencakup kedua opsi setup tersebut."
+            />
+            <FAQ
+              q="Akses berlaku selamanya?"
+              a="Ya. Akses selamanya termasuk update produk ke depannya. Sekali beli, dapat semua update dan produk baru yang ditambahkan tanpa biaya tambahan."
+            />
+            <FAQ
+              q="Ada bantuan kalau mentok?"
+              a="Ada. Hubungi via Telegram, kami bantu sampai berhasil. Kami juga punya komunitas pengguna yang aktif saling membantu."
+            />
+            <FAQ
+              q="Beda paket lengkap dengan jasa pembuatan automation apa?"
+              a="Paket lengkap cocok jika Anda ingin belajar dan setup sendiri dengan panduan. Jasa pembuatan automation cocok jika Anda tidak punya waktu dan ingin kami yang setup semuanya dari awal sampai jadi."
+            />
+            <FAQ
+              q="Apakah bisa integrasi dengan tools yang saya pakai?"
+              a="n8n mendukung 400+ integrasi termasuk WhatsApp, Telegram, Google Sheets, Notion, email, database, dan banyak lagi. Jika ada tool khusus, kami bisa bantu integrasikan via API atau webhook."
+            />
+            <FAQ
+              q="Bagaimana dengan data security dan privasi?"
+              a="Karena n8n bisa di-hosting sendiri, Anda punya kontrol penuh atas data Anda. Tidak ada data yang keluar ke pihak ketiga kecuali aplikasi yang Anda hubungkan sendiri."
             />
           </div>
         </div>

@@ -42,7 +42,7 @@ export default function Checkout() {
     [slug]
   );
 
-  const productTitle = selectedProject?.title ?? "Paket Lengkap";
+  const productTitle = selectedProject?.title ?? "Jago N8N: Paket Kursus Lengkap (All-In One)";
   const productShort =
     selectedProject?.short ??
     "Semua produk n8n siap pakai.";
@@ -57,6 +57,7 @@ export default function Checkout() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [showCopyOption, setShowCopyOption] = useState(false);
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [generatedMessage, setGeneratedMessage] = useState("");
   const [whatsappUrl, setWhatsappUrl] = useState("");
 
@@ -128,72 +129,67 @@ export default function Checkout() {
     setSubmitting(true);
 
     const lines = [
-      "================================",
-      "   PESANAN PRODUK N8N",
-      "================================",
-      "",
+      "*PESANAN PRODUK N8N*",
+      "\n",
       "[ DATA PEMBELI ]",
       `Nama     : ${name}`,
       `Email    : ${email}`,
       `WhatsApp : ${whatsapp}`,
-      "",
-      "--------------------------------",
-      "",
+      "-----------------------------------",
       "[ DETAIL PRODUK ]",
-      `Produk   : ${productTitle}`,
-      "",
-      "--------------------------------",
-      "",
+      `Produk : ${productTitle}`,
+      "-----------------------------------",
       "[ RINCIAN HARGA ]",
-      `Harga Normal   : ${formatRupiah(basePrice)}`,
-      promoDiscount > 0 ? `Diskon Promo   : -${formatRupiah(promoDiscount)}` : null,
-      couponDiscount > 0 ? `Kode Kupon     : ${coupon.toUpperCase()}` : null,
-      couponDiscount > 0 ? `Diskon Kupon   : -${formatRupiah(couponDiscount)}` : null,
-      "--------------------------------",
-      `TOTAL BAYAR    : ${formatRupiah(total)}`,
-      "",
-      "================================",
-      "",
-      "[ INFO PEMBAYARAN ]",
+      `Harga Normal : ${formatRupiah(basePrice)}`,
+      promoDiscount > 0 ? `Diskon Promo : -${formatRupiah(promoDiscount)}` : null,
+      couponDiscount > 0 ? `Kode Kupon   : ${coupon.toUpperCase()}` : null,
+      couponDiscount > 0 ? `Diskon Kupon : -${formatRupiah(couponDiscount)}` : null,
+      "-----------------------------------",
+      `*TOTAL BAYAR : ${formatRupiah(total)}*`,
+      "\n",
+      "[ *INFO PEMBAYARAN* ]",
       "Transfer ke salah satu rekening:",
-      "",
       "BCA",
-      "No. Rek : 629.0146.303",
-      "A.n.    : Fatkul Amri",
-      "",
+      `No. Rekening : 629.0146.303`,
+      `Atas Nama    : Fatkul Amri`,
       "MANDIRI",
-      "No. Rek : 144-00-1122645-0",
-      "A.n.    : Fatkul Amri",
-      "",
-      "--------------------------------",
-      "",
+      `No. Rekening : 144-00-1122645-0`,
+      `Atas Nama    : Fatkul Amri`,
+      "-----------------------------------",
+      "[ KONFIRMASI PEMBAYARAN ]",
       "Setelah transfer, kirim bukti ke:",
-      "WA    : 081234-306725",
-      "Email : suratkita@gmail.com",
-      "",
-      "================================",
-      "Terima kasih atas pesanannya!"
+      `WhatsApp : 081234-306725`,
+      `Email    : suratkita@gmail.com`,
+      "\n",
+      "Terima kasih atas kepercayaan Anda."
     ].filter(Boolean);
 
     const message = lines.join("\n");
     setGeneratedMessage(message);
 
     const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    setWhatsappUrl(waUrl);
+    
+    // Tampilkan pop-up pembayaran
+    setShowPaymentModal(true);
+    setSubmitting(false);
+  };
+
+  const handleProceedToWhatsApp = () => {
+    // Tutup modal pembayaran
+    setShowPaymentModal(false);
+    
+    // Cek apakah mobile atau desktop
     const isMobile = isMobileDevice();
     
     if (typeof window !== "undefined") {
       if (isMobile) {
-        window.location.href = waUrl;
-        setTimeout(() => {
-          setSubmitting(false);
-        }, 1000);
+        // Mobile: langsung redirect ke WhatsApp
+        window.location.href = whatsappUrl;
       } else {
-        // Simpan URL dan tampilkan modal dulu, biar pelanggan sempat baca instruksi
-        setWhatsappUrl(waUrl);
-        copyToClipboard(message, false).then(() => {
+        // Desktop: tampilkan modal copy message
+        copyToClipboard(generatedMessage, false).then(() => {
           setShowCopyOption(true);
-          setSubmitting(false);
-          // Tidak auto-open WhatsApp, biar pelanggan klik tombol sendiri
         });
       }
     }
@@ -372,14 +368,14 @@ export default function Checkout() {
                             {submitting ? (
                                 <span className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                             ) : (
-                                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
                                 </svg>
                             )}
                             <span>
                                 {submitting
-                                ? "Membuka WhatsApp..."
-                                : "Lanjut ke WhatsApp"}
+                                ? "Memproses..."
+                                : "Lakukan Pembayaran"}
                             </span>
                         </button>
 
@@ -472,6 +468,7 @@ export default function Checkout() {
                     </div>
                 </div>
                 
+
                 <div className="flex items-center justify-center gap-2 text-[10px] text-slate-400">
                     <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
@@ -482,6 +479,115 @@ export default function Checkout() {
           </div>
         </div>
       </div>
+
+      {/* Modal Pembayaran */}
+      {showPaymentModal && (
+        <div 
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-3"
+          onClick={() => setShowPaymentModal(false)}
+        >
+          <div 
+            className="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto p-4 md:p-5 relative animate-in fade-in zoom-in duration-200"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowPaymentModal(false)}
+              className="absolute top-3 right-3 text-slate-400 hover:text-slate-600 transition-colors z-10"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            {/* Header */}
+            <div className="text-center mb-4">
+              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                <svg className="w-6 h-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-bold text-slate-900 mb-1">Pembayaran</h3>
+              <p className="text-xs text-slate-500">Transfer ke rekening di bawah</p>
+            </div>
+
+            {/* Total Pembayaran */}
+            <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 border border-emerald-200 rounded-xl p-3 mb-3">
+              <p className="text-[10px] text-emerald-700 font-medium mb-0.5">Total Pembayaran</p>
+              <p className="text-2xl font-bold text-emerald-700">{formatRupiah(total)}</p>
+            </div>
+
+            {/* Info Rekening - Compact Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-3">
+              {/* BCA */}
+              <div className="bg-slate-50 border border-slate-200 rounded-lg p-3">
+                <div className="flex justify-center mb-2">
+                  <img 
+                    src="/projects/bca.png" 
+                    alt="BCA" 
+                    className="h-10 object-contain"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <div>
+                    <span className="text-[10px] text-slate-500 block">No. Rekening</span>
+                    <span className="font-mono font-bold text-slate-900 text-xs">629.0146.303</span>
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-slate-500 block">A.n.</span>
+                    <span className="font-semibold text-slate-900 text-xs">Fatkul Amri</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Mandiri */}
+              <div className="bg-slate-50 border border-slate-200 rounded-lg p-3">
+                <div className="flex justify-center mb-2">
+                  <img 
+                    src="/projects/mandiri.png" 
+                    alt="Mandiri" 
+                    className="h-10 object-contain"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <div>
+                    <span className="text-[10px] text-slate-500 block">No. Rekening</span>
+                    <span className="font-mono font-bold text-slate-900 text-xs">144-00-1122645-0</span>
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-slate-500 block">A.n.</span>
+                    <span className="font-semibold text-slate-900 text-xs">Fatkul Amri</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Instruksi - Simplified */}
+            <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-3">
+              <div className="flex items-start gap-2">
+                <svg className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <div className="text-xs text-amber-800 leading-relaxed">
+                  <p className="font-semibold mb-1">Langkah selanjutnya:</p>
+                  <p>1. Transfer <strong>{formatRupiah(total)}</strong> ke salah satu rekening di atas</p>
+                  <p>2. Klik tombol di bawah untuk konfirmasi via WhatsApp</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Tombol Lanjut ke WhatsApp */}
+            <button
+              onClick={handleProceedToWhatsApp}
+              className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-green-500 hover:bg-green-600 text-white rounded-lg font-semibold text-sm shadow-lg shadow-green-500/30 transition-all hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+              Lanjutkan ke WhatsApp
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Modal Copy Message for Desktop */}
       {showCopyOption && (
