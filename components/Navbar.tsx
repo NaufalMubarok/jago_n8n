@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 
 function scrollToId(id: string) {
   const el = document.getElementById(id)
@@ -20,6 +21,11 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  const pathname = usePathname()
+  if (!pathname) return null
+  const disabledButton = ["/projects/", "/checkout"]
+  const showButton = !disabledButton.some((prefix) => pathname.startsWith(prefix));
 
   return (
     <nav
@@ -48,7 +54,7 @@ export default function Navbar() {
         </Link>
 
         {/* Menu */}
-        <div className="flex items-center gap-3 sm:gap-6 text-gray-700 font-medium text-sm sm:text-base">
+        {showButton && <div className="flex items-center gap-3 sm:gap-6 text-gray-700 font-medium text-sm sm:text-base">
           <button
             type="button"
             onClick={() => scrollToId('products')}
@@ -61,9 +67,9 @@ export default function Navbar() {
             onClick={() => scrollToId('pricing')}
             className="px-3 sm:px-4 py-1.5 rounded-full border border-gray-300 text-xs sm:text-sm hover:border-green-500 hover:text-green-700 transition"
           >
-            Beli Paket Lengkap
+            Lihat Daftar Paket
           </button>
-        </div>
+        </div>}
       </div>
     </nav>
   )

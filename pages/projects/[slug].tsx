@@ -87,7 +87,7 @@ export default function ProjectDetail() {
           {/* HEADER */}
           <section className="rounded-3xl border border-slate-100 bg-white shadow-sm p-5 sm:p-6 md:p-8">
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 text-slate-900">
-              {project.title}
+              {project.title.replace(/^\d+\.\s+/, "")}
             </h1>
             <p className="text-sm md:text-base text-slate-600">
               {project.short}

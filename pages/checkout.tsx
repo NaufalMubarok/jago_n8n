@@ -127,7 +127,7 @@ export default function Checkout() {
     }
 
     setSubmitting(true);
-
+    
     const lines = [
       "*PESANAN PRODUK N8N*",
       "\n",
@@ -137,7 +137,7 @@ export default function Checkout() {
       `WhatsApp : ${whatsapp}`,
       "-----------------------------------",
       "[ DETAIL PRODUK ]",
-      `Produk : ${productTitle}`,
+      `Produk : ${productTitle.replace(/^\d+\.\s+/, "")}`,
       "-----------------------------------",
       "[ RINCIAN HARGA ]",
       `Harga Normal : ${formatRupiah(basePrice)}`,
@@ -397,7 +397,7 @@ export default function Checkout() {
                         <div className="flex justify-between items-start text-sm">
                             <span className="text-slate-500 flex-1 pr-4">Produk</span>
                             <span className="font-semibold text-slate-800 text-right max-w-[140px] text-xs leading-relaxed">
-                                {productTitle}
+                                {productTitle.replace(/^\d+\.\s+/, "")}
                             </span>
                         </div>
 

@@ -73,7 +73,7 @@ export default function Home() {
 
               <h1 className="text-4xl md:text-6xl font-bold leading-tight tracking-tight">
                 <span className="text-emerald-600">Jago n8n</span> Buat 11+ Produk
-                Automasi
+                Otomasi
               </h1>
 
               <p className="mt-5 text-base md:text-lg text-slate-600 max-w-xl">
@@ -101,7 +101,7 @@ export default function Home() {
                   }}
                   className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl border border-slate-200 bg-white/70 text-sm md:text-base font-medium hover:border-emerald-400 hover:text-emerald-700 transition"
                 >
-                  Beli Paket Lengkap
+                  Lihat Daftar Paket
                 </button>
               </div>
 
@@ -139,10 +139,10 @@ export default function Home() {
                 <div className="rounded-2xl bg-slate-950 p-4 md:p-5 text-xs text-slate-100">
                   <div className="flex flex-wrap gap-2 mb-4">
                     <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/40">
-                      Apa itu n8n?
+                      Apa itu Jago n8n?
                     </span>
                     <span className="px-3 py-1 rounded-full bg-sky-500/10 text-sky-300 border border-sky-500/40">
-                      Demo Nyata
+                      Contoh Nyata
                     </span>
                   </div>
 
@@ -185,12 +185,13 @@ export default function Home() {
               <span className="uppercase tracking-wide">Freelancer Otomasi</span>
               <span className="uppercase tracking-wide">Pemilik Bisnis</span>
               <span className="uppercase tracking-wide">Agensi & Kreator</span>
+              <span className="uppercase tracking-wide">Developer n8n</span>
             </div>
           </div>
         </ScrollReveal>
       </section>
 
-      {/* ================= JASA AUTOMATION BANNER ================= */}
+      {/* ================= JASA OTOMATISASI BANNER ================= */}
       <section className="px-6 md:px-20 py-16 bg-gradient-to-br from-sky-950 via-slate-900 to-slate-950 relative overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <div className="absolute top-0 right-0 h-96 w-96 rounded-full bg-sky-500/10 blur-3xl" />
@@ -206,11 +207,11 @@ export default function Home() {
                   Done For You Service
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
-                  Butuh Automation Custom?
+                  Butuh Otomatisasi Custom?
                   <span className="text-sky-400"> Kami Buatkan!</span>
                 </h2>
                 <p className="text-sm md:text-base text-slate-400 mb-6 max-w-lg">
-                  Tidak punya waktu untuk belajar? Serahkan pada kami. Tim ahli kami siap membuatkan automation sesuai kebutuhan bisnis Anda.
+                  Tidak punya waktu untuk belajar? Serahkan pada kami. Tim ahli kami siap membuatkan otomatisasi sesuai kebutuhan bisnis Anda.
                 </p>
                 <a
                   href="https://wa.me/6281234306725?text=Halo,%20saya%20tertarik%20dengan%20jasa%20pembuatan%20automation"
@@ -261,7 +262,7 @@ export default function Home() {
                 </div>
 
                 <p className="mt-4 text-center text-xs text-slate-500">
-                  + automation custom lainnya sesuai kebutuhan bisnis Anda
+                  + otomatisasi custom lainnya sesuai kebutuhan bisnis Anda
                 </p>
               </div>
             </div>
@@ -439,7 +440,7 @@ export default function Home() {
           <ScrollReveal>
             <div className="text-center mb-12">
               <p className="text-xs font-semibold tracking-[0.2em] text-emerald-400 uppercase mb-3">
-                Pilihan Paket
+                Daftar Paket
               </p>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
                 Pilih sesuai kebutuhanmu
@@ -522,7 +523,7 @@ export default function Home() {
               </div>
             </ScrollReveal>
 
-            {/* Jasa Pembuatan Automation */}
+            {/* Jasa Pembuatan Otomatisasi */}
             <ScrollReveal delay={200}>
               <div className="rounded-3xl border border-sky-500/60 bg-slate-900/70 p-8 md:p-10 shadow-[0_18px_60px_rgba(14,165,233,0.25)] h-full flex flex-col">
                 <div className="flex-1">
@@ -531,10 +532,10 @@ export default function Home() {
                     Done For You
                   </div>
                   <h3 className="text-xl sm:text-2xl font-bold mb-2">
-                    Jasa Pembuatan Automation
+                    Jasa Pembuatan Otomatisasi
                   </h3>
                   <p className="text-sm text-slate-400 mb-6">
-                    Kami buatkan automation sesuai kebutuhanmu
+                    Kami buatkan otomatisasi sesuai kebutuhanmu
                   </p>
 
                   <ul className="space-y-3 text-sm text-slate-300 mb-8">
@@ -624,15 +625,15 @@ export default function Home() {
           <div className="space-y-5">
             <FAQ
               q="Apa itu n8n dan kenapa harus pakai n8n?"
-              a="n8n adalah platform automasi open-source yang memungkinkan Anda menghubungkan berbagai aplikasi dan layanan tanpa coding. Dengan n8n, Anda bisa mengotomasi tugas berulang, menghemat waktu, dan fokus pada hal yang lebih penting untuk bisnis Anda."
+              a="n8n adalah platform otomasi open-source yang memungkinkan Anda menghubungkan berbagai aplikasi dan layanan tanpa coding. Dengan n8n, Anda bisa mengotomasi tugas berulang, menghemat waktu, dan fokus pada hal yang lebih penting untuk bisnis Anda."
             />
             <FAQ
               q="Cocok untuk pemula?"
-              a="Sangat cocok. Sudah ada panduan lengkap langkah demi langkah dengan video tutorial. Bahkan tanpa pengalaman teknis sebelumnya, Anda bisa mengikuti dan menjalankan automation dalam waktu singkat."
+              a="Sangat cocok. Sudah ada panduan lengkap langkah demi langkah dengan video tutorial. Bahkan tanpa pengalaman teknis sebelumnya, Anda bisa mengikuti dan menjalankan otomatisasi dalam waktu singkat."
             />
             <FAQ
               q="Perlu skill coding?"
-              a="Tidak. Semua produk dibuat dengan sistem drag-and-drop. Cukup ikuti panduan yang sudah disiapkan, hubungkan akun-akun yang diperlukan, dan automation siap berjalan."
+              a="Tidak. Semua produk dibuat dengan sistem drag-and-drop. Cukup ikuti panduan yang sudah disiapkan, hubungkan akun-akun yang diperlukan, dan otomatisasi siap berjalan."
             />
             <FAQ
               q="Apakah produk bisa dikustomisasi sesuai kebutuhan saya?"
@@ -651,8 +652,8 @@ export default function Home() {
               a="Ada. Hubungi via Telegram, kami bantu sampai berhasil. Kami juga punya komunitas pengguna yang aktif saling membantu."
             />
             <FAQ
-              q="Beda paket lengkap dengan jasa pembuatan automation apa?"
-              a="Paket lengkap cocok jika Anda ingin belajar dan setup sendiri dengan panduan. Jasa pembuatan automation cocok jika Anda tidak punya waktu dan ingin kami yang setup semuanya dari awal sampai jadi."
+              q="Beda paket lengkap dengan jasa pembuatan otomatisasi apa?"
+              a="Paket lengkap cocok jika Anda ingin belajar dan setup sendiri dengan panduan. Jasa pembuatan otomatisasi cocok jika Anda tidak punya waktu dan ingin kami yang setup semuanya dari awal sampai jadi."
             />
             <FAQ
               q="Apakah bisa integrasi dengan tools yang saya pakai?"
@@ -743,7 +744,7 @@ export default function Home() {
                 </li>
                 <li>
                   <a
-                    href="https://wa.me/6281234306725"
+                    href="https://wa.me/6281212122388"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-slate-600 hover:text-emerald-600 transition-colors flex items-center gap-2.5 group"
@@ -751,7 +752,7 @@ export default function Home() {
                     <svg className="w-5 h-5 flex-shrink-0 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
                     </svg>
-                    +62 812-3430-6725
+                    +62 812-1212-2388
                   </a>
                 </li>
               </ul>
