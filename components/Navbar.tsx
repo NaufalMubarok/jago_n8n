@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 
 function scrollToId(id: string) {
   const el = document.getElementById(id)
@@ -12,7 +13,8 @@ function scrollToId(id: string) {
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
-
+  
+  
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10)
@@ -21,6 +23,11 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const pathname = usePathname();
+  if (!pathname) return null;
+  const disableButton = ["/checkout", "/projects/"];
+  const showButton = !disableButton.some((prefix) => pathname.startsWith(prefix));
+  
   return (
     <nav
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white border-b border-gray-200' : 'bg-transparent'
@@ -48,22 +55,22 @@ export default function Navbar() {
         </Link>
 
         {/* Menu */}
-        <div className="flex items-center gap-3 sm:gap-6 text-gray-700 font-medium text-sm sm:text-base">
+        {showButton && <div className="flex items-center gap-3 sm:gap-6 text-gray-700 font-medium text-sm sm:text-base">
           <button
             type="button"
             onClick={() => scrollToId('products')}
             className="hidden sm:inline-block hover:text-green-600 transition"
           >
             Produk
-          </button>
+          </button>           
           <button
             type="button"
             onClick={() => scrollToId('pricing')}
             className="px-3 sm:px-4 py-1.5 rounded-full border border-gray-300 text-xs sm:text-sm hover:border-green-500 hover:text-green-700 transition"
           >
-            Beli Paket Lengkap
+            Lihat Daftar Paket
           </button>
-        </div>
+        </div>}
       </div>
     </nav>
   )
