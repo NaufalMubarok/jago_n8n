@@ -35,23 +35,29 @@ const COUPON_CODE = "JAGON8N";
 export default function Checkout() {
   const router = useRouter();
   const { product } = router.query;
-  const slug = Array.isArray(product) ? product[0] : product;
-
+  const slug = Array.isArray(product) ? product[0] : product; 
+  
   const selectedProject = useMemo(
     () => (slug ? projects.find((p) => p.slug === slug) : null),
     [slug]
   );
-
-  const productTitle = selectedProject?.title ?? "Jago N8N: Paket Kursus Lengkap (All-In One)";
+  
+  const productTitle = selectedProject?.title.replace(/^\d+\.\s+/, "") ?? "Jago N8N: Paket Kursus Lengkap (All-In One)";
   const productShort =
-    selectedProject?.short ??
-    "Semua produk n8n siap pakai.";
+  selectedProject?.short ??
+  "Semua produk n8n siap pakai.";
   const productContent =
-    selectedProject?.content ??
-    "Koleksi lengkap untuk otomasi berbagai proses bisnis.";
+  selectedProject?.content ??
+  "Koleksi lengkap untuk otomasi berbagai proses bisnis.";
+  
+  const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const phoneRegex: RegExp = /^0?8\+?[0-9]{8,11}$/;
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [InvalidNumber, setInvalidNumber] = useState(false)
+  const [InvalidEmail, setInvalidEmail] = useState(false)
   const [whatsapp, setWhatsapp] = useState("");
   const [coupon, setCoupon] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -117,13 +123,32 @@ export default function Checkout() {
     }
   };
 
+  const checkEmail = (email: string) => {
+    return emailRegex.test(email);
+  }
+
+  const checkWhatsapp = (number: string) => {
+    return phoneRegex.test(number);
+  }
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     setError("");
+    setInvalidEmail(false)
+    setInvalidNumber(false)
 
     if (!name || !email || !whatsapp) {
       setError("Nama, email, dan nomor WhatsApp wajib diisi.");
       return;
+    }
+
+    const whatsappcheck = !checkWhatsapp(whatsapp);
+    const mailcheck = !checkEmail(email);
+    
+    if (whatsappcheck || mailcheck){
+      setInvalidEmail(mailcheck)
+      setInvalidNumber(whatsappcheck)
+      return
     }
 
     setSubmitting(true);
@@ -137,7 +162,7 @@ export default function Checkout() {
       `WhatsApp : ${whatsapp}`,
       "-----------------------------------",
       "[ DETAIL PRODUK ]",
-      `Produk : ${productTitle.replace(/^\d+\.\s+/, "")}`,
+      `Produk : ${productTitle}`,
       "-----------------------------------",
       "[ RINCIAN HARGA ]",
       `Harga Normal : ${formatRupiah(basePrice)}`,
@@ -276,9 +301,12 @@ export default function Checkout() {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     className="w-full pl-12 pr-4 py-3.5 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all text-slate-800 placeholder-slate-400"
-                                    placeholder="email@kamu.com"
+                                    placeholder="nama@mail.com"
                                 />
                             </div>
+                            {InvalidEmail && <div className="text-xm text-red-500 font-semibold">
+                              Alamat Email tidak valid. Pastikan format email sudah benar (contoh: nama@mail.com).
+                            </div>}
                         </div>
 
                         {/* WhatsApp Field */}
@@ -297,12 +325,15 @@ export default function Checkout() {
                                     value={whatsapp}
                                     onChange={handleWhatsappChange}
                                     className="w-full pl-12 pr-4 py-3.5 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all text-slate-800 placeholder-slate-400"
-                                    placeholder="Contoh: 0812xxxxxxx"
+                                    placeholder="Contoh: 08xxxxxxxxx"
                                 />
                             </div>
                             <p className="text-xs text-slate-500 ml-1">
                                 *Untuk konfirmasi pesanan via WhatsApp
                             </p>
+                            { InvalidNumber && <div className="text-xm text-red-500 font-semibold">
+                              Format Nomor Whatsapp tidak sesuai. Gunakan awalan 08 atau 8 dengan panjang 10-13 digit 
+                            </div>}
                         </div>
 
                         {/* Coupon Field */}
@@ -397,7 +428,7 @@ export default function Checkout() {
                         <div className="flex justify-between items-start text-sm">
                             <span className="text-slate-500 flex-1 pr-4">Produk</span>
                             <span className="font-semibold text-slate-800 text-right max-w-[140px] text-xs leading-relaxed">
-                                {productTitle.replace(/^\d+\.\s+/, "")}
+                                {productTitle}
                             </span>
                         </div>
 

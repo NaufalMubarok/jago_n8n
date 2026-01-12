@@ -187,9 +187,12 @@ export default function ProjectDetail() {
                 Harga Produk
               </p>
               <div className="space-y-1">
-                <div className="flex items-baseline gap-2">
-                  <h3 className="text-3xl font-bold text-emerald-400">
+                <div className="flex flex-col items-baseline">
+                  <h3 className="text-lg font-bold line-through text-slate-500">
                     Rp 50.000
+                  </h3>
+                  <h3 className="text-3xl font-bold text-emerald-400">
+                    Rp 25.000
                   </h3>
                 </div>
                 <p className="text-[11px] text-slate-400">
