@@ -496,16 +496,16 @@ export default function Home() {
                 </div>
 
                 <div>
-                  <div className="flex items-baseline gap-2 mb-1">
+                  {/* <div className="flex items-baseline gap-2 mb-1">
                     <span className="text-lg text-slate-500 line-through">
                       Rp 299.000
                     </span>
                     <span className="text-xs text-emerald-300 font-medium">
                       Hemat 50%
                     </span>
-                  </div>
+                  </div> */}
                   <div className="text-3xl md:text-4xl font-bold text-emerald-400 mb-4">
-                    Rp 149.000
+                    Rp 299.000
                   </div>
 
                   <a

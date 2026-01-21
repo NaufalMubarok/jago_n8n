@@ -6,8 +6,8 @@
         "short": "Otomatisasi pembuatan chatbot menggunakan n8n dan OpenAI.",
         "image": "/projects/1.png",
         "price": 50000,
-        "promoDiscount": 25000,
-        "couponDiscount": 5000,
+        "promoDiscount": 0,
+        "couponDiscount": 0,
         "content": "Detail lengkap workflow pembuatan chatbot, langkah-langkah dan integrasi.",
         "sections": [
             {
@@ -44,8 +44,8 @@
         "short": "Catat pengeluaran otomatis dengan Google Sheet dan Telegram Bot.",
         "image": "/projects/2.png",
         "price": 50000,
-        "promoDiscount": 25000,
-        "couponDiscount": 5000,
+        "promoDiscount": 0,
+        "couponDiscount": 0,
         "content": "Panduan setup tracker otomatis, webhook, trigger, dan sinkronisasi.",
         "sections": [
             {
@@ -81,8 +81,8 @@
         "short": "Mengubah pencatatan manual menjadi alur otomatis.",
         "image": "/projects/3.png",
         "price": 50000,
-        "promoDiscount": 25000,
-        "couponDiscount": 5000,
+        "promoDiscount": 0,
+        "couponDiscount": 0,
         "content": "Deskripsi proyek dan file konfigurasi contoh.",
         "sections": [
             {
@@ -118,8 +118,8 @@
         "short": "Langkah demi langkah membangun bot Telegram/Slack.",
         "image": "/projects/4.png",
         "price": 50000,
-        "promoDiscount": 25000,
-        "couponDiscount": 5000,
+        "promoDiscount": 0,
+        "couponDiscount": 0,
         "content": "Flow dan node n8n yang direkomendasikan.",
         "sections": [
             {
@@ -155,8 +155,8 @@
         "short": "Otomatisasi konversi gambar ke SVG/format lain.",
         "image": "/projects/5.png",
         "price": 50000,
-        "promoDiscount": 25000,
-        "couponDiscount": 5000,
+        "promoDiscount": 0,
+        "couponDiscount": 0,
         "content": "Workflow pemrosesan gambar batch.",
         "sections": [
             {
@@ -192,8 +192,8 @@
         "short": "Buat dokumen dari template secara otomatis.",
         "image": "/projects/6.png",
         "price": 50000,
-        "promoDiscount": 25000,
-        "couponDiscount": 5000,
+        "promoDiscount": 0,
+        "couponDiscount": 0,
         "content": "Template, merge data, dan export otomatis.",
         "sections": [
             {
@@ -229,8 +229,8 @@
         "short": "Panduan komprehensif pembuatan bot otomatis.",
         "image": "/projects/7.png",
         "price": 50000,
-        "promoDiscount": 25000,
-        "couponDiscount": 5000,
+        "promoDiscount": 0,
+        "couponDiscount": 0,
         "content": "Panduan langkah demi langkah.",
         "sections": [
             {
@@ -266,8 +266,8 @@
         "short": "Generate form & collect response otomatis.",
         "image": "/projects/8.png",
         "price": 50000,
-        "promoDiscount": 25000,
-        "couponDiscount": 5000,
+        "promoDiscount": 0,
+        "couponDiscount": 0,
         "content": "Integrasi form builder & sink ke database.",
         "sections": [
             {
@@ -303,8 +303,8 @@
         "short": "Proses batch untuk resize, optimasi, dan tagging.",
         "image": "/projects/9.png",
         "price": 50000,
-        "promoDiscount": 25000,
-        "couponDiscount": 5000,
+        "promoDiscount": 0,
+        "couponDiscount": 0,
         "content": "Script & node untuk pemrosesan gambar.",
         "sections": [
             {
@@ -340,8 +340,8 @@
         "short": "Versi lanjutan dengan metadata extraction.",
         "image": "/projects/10.png",
         "price": 50000,
-        "promoDiscount": 25000,
-        "couponDiscount": 5000,
+        "promoDiscount": 0,
+        "couponDiscount": 0,
         "content": "Ekstraksi metadata dan indexing.",
         "sections": [
             {
@@ -377,8 +377,8 @@
         "short": "Pipeline lengkap untuk gambar besar.",
         "image": "/projects/11.png",
         "price": 50000,
-        "promoDiscount": 25000,
-        "couponDiscount": 5000,
+        "promoDiscount": 0,
+        "couponDiscount": 0,
         "content": "Tips optimasi dan storage.",
         "sections": [
             {
@@ -414,8 +414,8 @@
         "short": "Auto-tagging dan metadata enrichment.",
         "image": "/projects/12.png",
         "price": 50000,
-        "promoDiscount": 25000,
-        "couponDiscount": 5000,
+        "promoDiscount": 0,
+        "couponDiscount": 0,
         "content": "Penggunaan AI untuk tag otomatis.",
         "sections": [
             {

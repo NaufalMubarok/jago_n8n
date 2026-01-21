@@ -22,7 +22,7 @@ const WHATSAPP_NUMBER = "6281234306725";
 
 // Pricing for bundle (all workflows)
 const BUNDLE_BASE_PRICE = 299000;
-const BUNDLE_PROMO_DISCOUNT = 150000;
+const BUNDLE_PROMO_DISCOUNT = 0;
 const BUNDLE_COUPON_DISCOUNT = 40000;
 
 // Pricing per individual product (default if not in JSON)
