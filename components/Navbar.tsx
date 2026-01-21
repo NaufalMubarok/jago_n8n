@@ -22,12 +22,12 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-  
+
   const pathname = usePathname();
   if (!pathname) return null;
   const disableButton = ["/checkout", "/projects/"];
   const showButton = !disableButton.some((prefix) => pathname.startsWith(prefix));
-
+  
   return (
     <nav
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white border-b border-gray-200' : 'bg-transparent'
