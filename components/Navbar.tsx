@@ -13,7 +13,8 @@ function scrollToId(id: string) {
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
-
+  
+  
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10)
@@ -21,11 +22,11 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  const pathname = usePathname()
-  if (!pathname) return null
-  const disabledButton = ["/projects/", "/checkout"]
-  const showButton = !disabledButton.some((prefix) => pathname.startsWith(prefix));
+  
+  const pathname = usePathname();
+  if (!pathname) return null;
+  const disableButton = ["/checkout", "/projects/"];
+  const showButton = !disableButton.some((prefix) => pathname.startsWith(prefix));
 
   return (
     <nav
@@ -61,7 +62,7 @@ export default function Navbar() {
             className="hidden sm:inline-block hover:text-green-600 transition"
           >
             Produk
-          </button>
+          </button>           
           <button
             type="button"
             onClick={() => scrollToId('pricing')}

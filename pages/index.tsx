@@ -29,6 +29,7 @@ interface FAQProps {
   a: string;
 }
 
+
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -139,7 +140,7 @@ export default function Home() {
                 <div className="rounded-2xl bg-slate-950 p-4 md:p-5 text-xs text-slate-100">
                   <div className="flex flex-wrap gap-2 mb-4">
                     <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/40">
-                      Apa itu Jago n8n?
+                      Apa itu n8n?
                     </span>
                     <span className="px-3 py-1 rounded-full bg-sky-500/10 text-sky-300 border border-sky-500/40">
                       Contoh Nyata
@@ -185,7 +186,6 @@ export default function Home() {
               <span className="uppercase tracking-wide">Freelancer Otomasi</span>
               <span className="uppercase tracking-wide">Pemilik Bisnis</span>
               <span className="uppercase tracking-wide">Agensi & Kreator</span>
-              <span className="uppercase tracking-wide">Developer n8n</span>
             </div>
           </div>
         </ScrollReveal>
